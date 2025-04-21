@@ -50,9 +50,27 @@ const theme = extendTheme({
       fontWeight: 400,
     },
     "body-sm": {
-      fontSize: "1.4rem",
+      fontSize: "1.2rem",
       lineHeight: 1.5,
       fontWeight: 400,
+    },
+  },
+  components: {
+    JoyInput: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&.Mui-focused": {
+            "--Input-focusedHighlight": theme.vars.palette.primary.solidBg, // your custom color here
+          },
+        }),
+      },
+    },
+    JoyFormLabel: {
+      styleOverrides: {
+        root: () => ({
+          fontSize: "1.2rem",
+        }),
+      },
     },
   },
 });
