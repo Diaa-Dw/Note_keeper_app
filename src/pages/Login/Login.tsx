@@ -7,24 +7,44 @@ import {
 } from "./Login.style";
 import { Button, Link, Typography } from "@mui/joy";
 import PasswordInput from "../../components/PasswordInput";
+import { useForm } from "react-hook-form";
+import { LoginFormData } from "./Login.type";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>();
+
+  const onLogin = (data: LoginFormData) => {};
+
   return (
-    <LoginWrapper>
-      <LoginCard>
+    <LoginWrapper component={"main"}>
+      <LoginCard component={"form"} onSubmit={handleSubmit(onLogin)}>
         <Typography component={"h2"} level='h2'>
           Welcome Back
         </Typography>
         <FormInput
           label='Email'
           type='email'
+          id='email'
           placeholder='example@gmail.com'
           startDecorator={<EmailRoundedIcon />}
+          register={register}
+          error={errors.email?.message}
         />
 
-        <PasswordInput label='Password' />
+        <PasswordInput
+          label='Password'
+          id='password'
+          register={register}
+          error={errors.password?.message}
+        />
 
-        <Button size='lg'>Login</Button>
+        <Button type='submit' size='lg'>
+          Login
+        </Button>
 
         <RightAlignedLinkWrapper>
           <Link level='body-sm' color='neutral' href='/forgotPassword'>
