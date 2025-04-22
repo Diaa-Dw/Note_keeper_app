@@ -71,6 +71,11 @@ const theme = extendTheme({
             "--Input-focusedHighlight": theme.vars.palette.primary.solidBg, // your custom color here
           },
         }),
+        endDecorator: {
+          "& svg": {
+            fontSize: "1.6rem",
+          },
+        },
       },
     },
     JoyFormLabel: {
