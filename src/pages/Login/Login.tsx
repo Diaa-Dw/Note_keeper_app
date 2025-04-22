@@ -9,6 +9,7 @@ import { Button, Link, Typography } from "@mui/joy";
 import PasswordInput from "../../components/PasswordInput";
 import { useForm } from "react-hook-form";
 import { LoginFormData } from "./Login.type";
+import { emailValidation, passwordValidation } from "./Login.schema";
 
 const Login = () => {
   const {
@@ -17,7 +18,9 @@ const Login = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>();
 
-  const onLogin = (data: LoginFormData) => {};
+  const onLogin = (data: LoginFormData) => {
+    console.log("🚀 ~ onLogin ~ data:", data);
+  };
 
   return (
     <LoginWrapper component={"main"}>
@@ -32,6 +35,7 @@ const Login = () => {
           placeholder='example@gmail.com'
           startDecorator={<EmailRoundedIcon />}
           register={register}
+          validation={emailValidation}
           error={errors.email?.message}
         />
 
@@ -39,10 +43,11 @@ const Login = () => {
           label='Password'
           id='password'
           register={register}
+          validation={passwordValidation}
           error={errors.password?.message}
         />
 
-        <Button type='submit' size='lg'>
+        <Button type='submit' size='lg' loading={isSubmitting}>
           Login
         </Button>
 
