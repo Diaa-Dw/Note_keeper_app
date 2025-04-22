@@ -64,7 +64,7 @@ const theme = extendTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           borderRadius: "4px",
-          padding: "1rem",
+          padding: ".7rem",
           fontSize: "1.4rem",
           color: theme.vars.palette.text.primary,
           "&.Mui-focused": {
@@ -82,6 +82,14 @@ const theme = extendTheme({
       styleOverrides: {
         root: () => ({
           fontSize: "1.2rem",
+        }),
+      },
+    },
+    JoyButton: {
+      styleOverrides: {
+        root: () => ({
+          transition: "background .3s ease-in",
+          fontSize: "1.4rem",
         }),
       },
     },

@@ -15,10 +15,10 @@ const globalStyles = {
     flexDirection: "column",
   },
   a: {
-    textDecoration: "inherit",
     color: "var(--joy-palette-primary-plainColor)",
+    transition: "all .2s ease-in",
     "&:hover": {
-      color: "var(--joy-palette-primary-plainHoverColor)",
+      color: "var(--joy-palette-primary-solidBg)",
     },
   },
   "input:-webkit-autofill": {
