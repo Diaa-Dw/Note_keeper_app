@@ -3,4 +3,8 @@ export interface FormInputProps {
   type: string;
   startDecorator: React.ReactNode;
   placeholder: string;
+  id: string;
+  register: Register;
+  validation: Validation;
+  error?: string;
 }
