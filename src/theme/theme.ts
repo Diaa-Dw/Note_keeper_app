@@ -39,6 +39,10 @@ const theme = extendTheme({
       fontSize: "3rem",
       fontWeight: 500,
     },
+    h2: {
+      fontSize: "2.2rem",
+      fontWeight: 500,
+    },
     "body-lg": {
       fontSize: "1.8rem",
       lineHeight: 1.5,
@@ -59,6 +63,10 @@ const theme = extendTheme({
     JoyInput: {
       styleOverrides: {
         root: ({ theme }) => ({
+          borderRadius: "4px",
+          padding: "1rem",
+          fontSize: "1.4rem",
+          color: theme.vars.palette.text.primary,
           "&.Mui-focused": {
             "--Input-focusedHighlight": theme.vars.palette.primary.solidBg, // your custom color here
           },

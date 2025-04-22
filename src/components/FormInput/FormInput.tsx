@@ -1,5 +1,4 @@
-import { FormLabel } from "@mui/joy";
-import { StyledFormControl, StyledInput } from "./FormInput.style";
+import { FormControl, FormLabel, Input } from "@mui/joy";
 import { FormInputProps } from "./FormInput.type";
 
 const FormInput = ({
@@ -9,14 +8,14 @@ const FormInput = ({
   placeholder = "",
 }: FormInputProps) => {
   return (
-    <StyledFormControl>
+    <FormControl>
       <FormLabel>{label}</FormLabel>
-      <StyledInput
+      <Input
         type={type}
         placeholder={placeholder}
         startDecorator={startDecorator}
       />
-    </StyledFormControl>
+    </FormControl>
   );
 };
 
