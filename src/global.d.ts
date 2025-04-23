@@ -5,6 +5,16 @@ declare global {
     theme: Theme;
   }
 
+  interface WithChildren {
+    children: React.ReactNode;
+  }
+
+  interface User {
+    id: string;
+    username: string;
+    profile: string;
+  }
+
   type Register = UseFormRegister;
   type Validation = RegisterOptions;
 }
