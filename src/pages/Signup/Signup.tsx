@@ -4,16 +4,30 @@ import FormInput from "../../components/FormInput";
 import { useForm } from "react-hook-form";
 import { EmailRounded, Person } from "@mui/icons-material";
 import PasswordInput from "../../components/PasswordInput";
+import {
+  confirmPasswordValidation,
+  emailValidation,
+  passwordValidation,
+  usernameValidation,
+} from "./Signup.schema";
 
 const Signup = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm();
+
+  const onSignup = () => {
+    console.log("test");
+  };
+
+  const password = watch("password");
+
   return (
     <SignupnWrapper>
-      <SignupnCard>
+      <SignupnCard component={"form"} onSubmit={handleSubmit(onSignup)}>
         <Typography component={"h2"} level='h2'>
           Create your account
         </Typography>
@@ -25,7 +39,7 @@ const Signup = () => {
           placeholder='Full Name'
           startDecorator={<Person />}
           register={register}
-          validation={{}}
+          validation={usernameValidation}
           error={errors.username?.message}
         />
 
@@ -36,7 +50,7 @@ const Signup = () => {
           placeholder='example@gmail.com'
           startDecorator={<EmailRounded />}
           register={register}
-          validation={{}}
+          validation={emailValidation}
           error={errors.email?.message}
         />
 
@@ -44,16 +58,16 @@ const Signup = () => {
           label='Password'
           id='password'
           register={register}
-          validation={{}}
+          validation={passwordValidation}
           error={errors.password?.message}
         />
 
         <PasswordInput
           label='Confirm Password'
-          id='password'
+          id='confirmPassword'
           register={register}
-          validation={{}}
-          error={errors.password?.message}
+          validation={confirmPasswordValidation(password)}
+          error={errors.confirmPassword?.message}
         />
 
         <Button type='submit' size='lg' loading={isSubmitting}>
