@@ -10,6 +10,9 @@ import {
   passwordValidation,
   usernameValidation,
 } from "./Signup.schema";
+import { useMutation } from "@tanstack/react-query";
+import signup from "./api/signup.auth";
+import { SignupFormData } from "./Signup.type";
 
 const Signup = () => {
   const {
@@ -17,13 +20,24 @@ const Signup = () => {
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm();
-
-  const onSignup = () => {
-    console.log("test");
-  };
+  } = useForm<SignupFormData>();
 
   const password = watch("password");
+
+  const signupMutation = useMutation({
+    mutationFn: signup,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log("🚀 ~ Signup ~ error:", error);
+    },
+  });
+
+  const onSignup = (data: SignupFormData) => {
+    const { username, email, password } = data;
+    signupMutation.mutate({ username, email, password });
+  };
 
   return (
     <SignupnWrapper>
@@ -70,7 +84,11 @@ const Signup = () => {
           error={errors.confirmPassword?.message}
         />
 
-        <Button type='submit' size='lg' loading={isSubmitting}>
+        <Button
+          type='submit'
+          size='lg'
+          loading={signupMutation.isPending || isSubmitting}
+        >
           Sign up
         </Button>
 
