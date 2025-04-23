@@ -13,6 +13,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import signup from "./api/signup.auth";
 import { SignupFormData } from "./Signup.type";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const {
@@ -27,10 +28,16 @@ const Signup = () => {
   const signupMutation = useMutation({
     mutationFn: signup,
     onSuccess: (data) => {
-      console.log(data);
+      toast.success(data.message);
     },
     onError: (error) => {
-      console.log("🚀 ~ Signup ~ error:", error);
+      if (error.message) {
+        toast.error(error.message);
+      } else {
+        toast.error(
+          "An unexpected error occurred while signup please try again."
+        );
+      }
     },
   });
 

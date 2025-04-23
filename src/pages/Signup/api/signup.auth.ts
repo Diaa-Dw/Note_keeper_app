@@ -7,7 +7,7 @@ const signup = async ({
   email,
   password,
   profile = "",
-}: SignupFormData) => {
+}: Omit<SignupFormData, "confirmPassword">) => {
   const formData = new FormData();
 
   formData.append("username", username);
