@@ -24,13 +24,14 @@ const login = async ({ email, password }: LoginFormData) => {
     );
 
     const data = res.data.data;
+    const user = {
+      id: data.user._id,
+      username: data.user.username,
+      profile: data.user?.photo || "",
+    };
+    const token = data.token;
     //store the user data in local storage
     if (data) {
-      const user = {
-        id: data.user._id,
-        username: data.user.username,
-        profile: data.user?.photo || "",
-      };
       localStorage.setItem("user", JSON.stringify(user));
       Cookies.set("token", data.token, {
         expires: 7,
@@ -39,7 +40,7 @@ const login = async ({ email, password }: LoginFormData) => {
       });
     }
 
-    return data;
+    return { user, token };
   } catch (error: unknown) {
     console.log("🚀 ~ login ~ error:", error);
     if (axios.isAxiosError(error)) {

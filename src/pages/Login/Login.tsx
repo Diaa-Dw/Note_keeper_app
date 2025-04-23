@@ -14,8 +14,10 @@ import { useMutation } from "@tanstack/react-query";
 import login from "./api/login";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import { useAuthDispatch } from "../../contexts/Auth/useAuth";
 
 const Login = () => {
+  const dispatch = useAuthDispatch();
   const {
     register,
     handleSubmit,
@@ -24,8 +26,9 @@ const Login = () => {
 
   const loginMutation = useMutation({
     mutationFn: login,
-    onSuccess: (data) => {
-      toast.success(`Welcome back, ${data.user.username}!`);
+    onSuccess: ({ user, token }) => {
+      toast.success(`Welcome back, ${user.username}!`);
+      dispatch({ type: "LOGIN", payload: { user, token } });
     },
     onError: (error) => {
       toast.error(
