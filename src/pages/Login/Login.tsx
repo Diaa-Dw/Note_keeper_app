@@ -13,6 +13,7 @@ import { emailValidation, passwordValidation } from "./Login.schema";
 import { useMutation } from "@tanstack/react-query";
 import login from "./api/login";
 import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const {
@@ -24,7 +25,12 @@ const Login = () => {
   const loginMutation = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      console.log(data);
+      toast.success(`Welcome back, ${data.user.username}!`);
+    },
+    onError: (error) => {
+      toast.error(
+        error?.message || "Somting went wrong while login please try again."
+      );
     },
   });
 

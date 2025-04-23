@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Login from "./pages/Login";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path='/login' element={<Login />} />
       </Routes>
+      <Toaster position='top-center' />
     </>
   );
 }
