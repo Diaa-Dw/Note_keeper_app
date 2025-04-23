@@ -10,6 +10,9 @@ import PasswordInput from "../../components/PasswordInput";
 import { useForm } from "react-hook-form";
 import { LoginFormData } from "./Login.type";
 import { emailValidation, passwordValidation } from "./Login.schema";
+import { useMutation } from "@tanstack/react-query";
+import login from "./api/login";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const {
@@ -18,8 +21,17 @@ const Login = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>();
 
+  const loginMutation = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
+  console.log(Cookies.get("jwt"));
   const onLogin = (data: LoginFormData) => {
-    console.log("🚀 ~ onLogin ~ data:", data);
+    const { email, password } = data;
+    loginMutation.mutate({ email, password });
   };
 
   return (
@@ -47,7 +59,11 @@ const Login = () => {
           error={errors.password?.message}
         />
 
-        <Button type='submit' size='lg' loading={isSubmitting}>
+        <Button
+          type='submit'
+          size='lg'
+          loading={loginMutation.isPending || isSubmitting}
+        >
           Login
         </Button>
 
