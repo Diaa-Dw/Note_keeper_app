@@ -15,6 +15,7 @@ import login from "./api/login";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useAuthDispatch } from "../../contexts/Auth/useAuth";
+import AuthGuard from "../../components/AuthGuard";
 
 const Login = () => {
   console.log(Cookies.get("jwt"));
@@ -44,52 +45,59 @@ const Login = () => {
   };
 
   return (
-    <LoginWrapper component={"main"}>
-      <LoginCard component={"form"} onSubmit={handleSubmit(onLogin)}>
-        <Typography component={"h2"} level='h2'>
-          Welcome Back
-        </Typography>
-        <FormInput
-          label='Email'
-          type='email'
-          id='email'
-          placeholder='example@gmail.com'
-          startDecorator={<EmailRoundedIcon />}
-          register={register}
-          validation={emailValidation}
-          error={errors.email?.message}
-        />
+    <AuthGuard requireAuth={false}>
+      <LoginWrapper component={"main"}>
+        <LoginCard component={"form"} onSubmit={handleSubmit(onLogin)}>
+          <Typography component={"h2"} level='h2'>
+            Welcome Back
+          </Typography>
+          <FormInput
+            label='Email'
+            type='email'
+            id='email'
+            placeholder='example@gmail.com'
+            startDecorator={<EmailRoundedIcon />}
+            register={register}
+            validation={emailValidation}
+            error={errors.email?.message}
+          />
 
-        <PasswordInput
-          label='Password'
-          id='password'
-          register={register}
-          validation={passwordValidation}
-          error={errors.password?.message}
-        />
+          <PasswordInput
+            label='Password'
+            id='password'
+            register={register}
+            validation={passwordValidation}
+            error={errors.password?.message}
+          />
 
-        <Button
-          type='submit'
-          size='lg'
-          loading={loginMutation.isPending || isSubmitting}
-        >
-          Login
-        </Button>
+          <Button
+            type='submit'
+            size='lg'
+            loading={loginMutation.isPending || isSubmitting}
+          >
+            Login
+          </Button>
 
-        <RightAlignedLinkWrapper>
-          <Link level='body-sm' color='neutral' href='/forgotPassword'>
-            Forgot Password?
-          </Link>
-        </RightAlignedLinkWrapper>
+          <RightAlignedLinkWrapper>
+            <Link level='body-sm' color='neutral' href='/forgotPassword'>
+              Forgot Password?
+            </Link>
+          </RightAlignedLinkWrapper>
 
-        <Typography level='body-sm' textAlign='center' fontSize='1.2rem'>
-          Don&apos;t have an account?{" "}
-          <Link level='body-sm' fontWeight={500} color='success' href='/signup'>
-            Sign up
-          </Link>
-        </Typography>
-      </LoginCard>
-    </LoginWrapper>
+          <Typography level='body-sm' textAlign='center' fontSize='1.2rem'>
+            Don&apos;t have an account?{" "}
+            <Link
+              level='body-sm'
+              fontWeight={500}
+              color='success'
+              href='/signup'
+            >
+              Sign up
+            </Link>
+          </Typography>
+        </LoginCard>
+      </LoginWrapper>
+    </AuthGuard>
   );
 };
 

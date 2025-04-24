@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import signup from "./api/signup.auth";
 import { SignupFormData } from "./Signup.type";
 import toast from "react-hot-toast";
+import AuthGuard from "../../components/AuthGuard";
 
 const Signup = () => {
   const {
@@ -47,66 +48,73 @@ const Signup = () => {
   };
 
   return (
-    <SignupnWrapper>
-      <SignupnCard component={"form"} onSubmit={handleSubmit(onSignup)}>
-        <Typography component={"h2"} level='h2'>
-          Create your account
-        </Typography>
+    <AuthGuard requireAuth={false}>
+      <SignupnWrapper>
+        <SignupnCard component={"form"} onSubmit={handleSubmit(onSignup)}>
+          <Typography component={"h2"} level='h2'>
+            Create your account
+          </Typography>
 
-        <FormInput
-          label='Full Name'
-          id='username'
-          type='text'
-          placeholder='Full Name'
-          startDecorator={<Person />}
-          register={register}
-          validation={usernameValidation}
-          error={errors.username?.message}
-        />
+          <FormInput
+            label='Full Name'
+            id='username'
+            type='text'
+            placeholder='Full Name'
+            startDecorator={<Person />}
+            register={register}
+            validation={usernameValidation}
+            error={errors.username?.message}
+          />
 
-        <FormInput
-          label='Email'
-          type='email'
-          id='email'
-          placeholder='example@gmail.com'
-          startDecorator={<EmailRounded />}
-          register={register}
-          validation={emailValidation}
-          error={errors.email?.message}
-        />
+          <FormInput
+            label='Email'
+            type='email'
+            id='email'
+            placeholder='example@gmail.com'
+            startDecorator={<EmailRounded />}
+            register={register}
+            validation={emailValidation}
+            error={errors.email?.message}
+          />
 
-        <PasswordInput
-          label='Password'
-          id='password'
-          register={register}
-          validation={passwordValidation}
-          error={errors.password?.message}
-        />
+          <PasswordInput
+            label='Password'
+            id='password'
+            register={register}
+            validation={passwordValidation}
+            error={errors.password?.message}
+          />
 
-        <PasswordInput
-          label='Confirm Password'
-          id='confirmPassword'
-          register={register}
-          validation={confirmPasswordValidation(password)}
-          error={errors.confirmPassword?.message}
-        />
+          <PasswordInput
+            label='Confirm Password'
+            id='confirmPassword'
+            register={register}
+            validation={confirmPasswordValidation(password)}
+            error={errors.confirmPassword?.message}
+          />
 
-        <Button
-          type='submit'
-          size='lg'
-          loading={signupMutation.isPending || isSubmitting}
-        >
-          Sign up
-        </Button>
+          <Button
+            type='submit'
+            size='lg'
+            loading={signupMutation.isPending || isSubmitting}
+          >
+            Sign up
+          </Button>
 
-        <Typography level='body-sm' textAlign='center' fontSize='1.2rem'>
-          Already have an account?{" "}
-          <Link level='body-sm' fontWeight={500} color='success' href='/login'>
-            Login
-          </Link>
-        </Typography>
-      </SignupnCard>
-    </SignupnWrapper>
+          <Typography level='body-sm' textAlign='center' fontSize='1.2rem'>
+            Already have an account?{" "}
+            <Link
+              level='body-sm'
+              fontWeight={500}
+              color='success'
+              href='/login'
+            >
+              Login
+            </Link>
+          </Typography>
+        </SignupnCard>
+      </SignupnWrapper>
+    </AuthGuard>
   );
 };
 
