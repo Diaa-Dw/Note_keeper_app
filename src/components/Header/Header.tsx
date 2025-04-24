@@ -17,9 +17,16 @@ const Header = () => {
       </LogoLink>
       <AvatarBox>
         {isAuthenticated && (
-          <Avatar src={profileImage} alt={user?.username} size='lg' />
+          <Avatar
+            src={profileImage}
+            alt={user?.username}
+            variant='solid'
+            size='lg'
+          />
         )}
-        <Typography>{user?.username}</Typography>
+        <Typography level='h3' component={"h3"}>
+          {user?.username}
+        </Typography>
       </AvatarBox>
     </StyledHeader>
   );
