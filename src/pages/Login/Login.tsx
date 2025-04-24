@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { useAuthDispatch } from "../../contexts/Auth/useAuth";
 
 const Login = () => {
+  console.log(Cookies.get("jwt"));
   const dispatch = useAuthDispatch();
   const {
     register,
@@ -37,7 +38,6 @@ const Login = () => {
     },
   });
 
-  console.log(Cookies.get("jwt"));
   const onLogin = (data: LoginFormData) => {
     const { email, password } = data;
     loginMutation.mutate({ email, password });

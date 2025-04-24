@@ -2,7 +2,7 @@ import axios from "axios";
 import { LoginFormData } from "../Login.type";
 import Cookies from "js-cookie";
 
-const API_URL = "https://fts-note-keeper-2.onrender.com/api/v1/users/login";
+const API_URL = "http://127.0.0.1:8080/api/v1/users/login";
 
 const login = async ({ email, password }: LoginFormData) => {
   // Check if email and password are provided
@@ -27,7 +27,7 @@ const login = async ({ email, password }: LoginFormData) => {
     const user = {
       id: data.user._id,
       username: data.user.username,
-      profile: data.user?.photo || "",
+      photo: data.user?.photo || "",
     };
     const token = data.token;
     //store the user data in local storage
