@@ -33,7 +33,7 @@ const login = async ({ email, password }: LoginFormData) => {
     //store the user data in local storage
     if (data) {
       localStorage.setItem("user", JSON.stringify(user));
-      Cookies.set("token", data.token, {
+      Cookies.set("jwt", data.token, {
         expires: 7,
         sameSite: "Lax",
         secure: true,
