@@ -5,6 +5,7 @@ export const StyledHeader = styled(Box)(() => ({
   padding: "1.5rem 2rem",
   display: "flex",
   alignItems: "center",
+  justifyContent: "space-between",
 }));
 
 export const LogoLink = styled(Link)(({ theme }: StyledProp) => ({
@@ -22,4 +23,10 @@ export const LogoLink = styled(Link)(({ theme }: StyledProp) => ({
     color: theme.vars.palette.text.primary,
     textDecoration: "none",
   },
+}));
+
+export const AvatarBox = styled(Box)(() => ({
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
 }));

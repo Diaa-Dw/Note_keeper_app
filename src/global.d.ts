@@ -12,7 +12,7 @@ declare global {
   interface User {
     id: string;
     username: string;
-    profile: string;
+    photo: string;
   }
 
   type Register = UseFormRegister;
