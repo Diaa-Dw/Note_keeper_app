@@ -1,12 +1,14 @@
 import { DeleteRounded, EditNoteRounded } from "@mui/icons-material";
 import { Card, Typography, CardContent, Button, Box } from "@mui/joy";
 import { NoteHeader } from "./NoteCard.style";
+import { NoteCardProps } from "./NoteCard.type";
 
-const NoteCard = () => {
+const NoteCard = ({ note }: NoteCardProps) => {
+  const { title, content } = note;
   return (
-    <Card sx={{ width: 420 }} variant='outlined'>
+    <Card sx={{ width: 380 }} variant='outlined'>
       <NoteHeader>
-        <Typography level='h3'>Project Ideas</Typography>
+        <Typography level='h3'>{title}</Typography>
         <Box>
           <Button variant='plain' color='neutral' size='sm'>
             <Typography>
@@ -23,10 +25,7 @@ const NoteCard = () => {
       </NoteHeader>
 
       <CardContent>
-        <Typography>
-          Brainstorming session outcomes: 1. Mobile app for task management 2.
-          AI-powered content generator 3. Social platform for developers
-        </Typography>
+        <Typography>{content}</Typography>
       </CardContent>
 
       <Typography>2025-04-24</Typography>

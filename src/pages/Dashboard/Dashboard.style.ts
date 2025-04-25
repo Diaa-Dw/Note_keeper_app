@@ -17,6 +17,9 @@ export const ActionsBox = styled(Box)(() => ({
 
 export const NotesContainer = styled(Box)(() => ({
   display: "flex",
+  justifyContent: "center",
+  flexWrap: "wrap",
+  gap: "16px",
   flexGrow: 1,
   margin: "2rem 0",
 }));

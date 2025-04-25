@@ -10,9 +10,22 @@ import { Add } from "@mui/icons-material";
 import { useState } from "react";
 import AddNoteModal from "./components/AddNoteModal";
 import NoteCard from "./components/NoteCard";
+import { useQuery } from "@tanstack/react-query";
+import { fetchNotes } from "./api/note.api";
+import CircularProgress from "../../components/CirculareProgress";
 
 const Dashboard = () => {
   const [openModal, setOpenModal] = useState(false);
+  const { data, isLoading } = useQuery({
+    queryKey: ["notes"],
+    queryFn: fetchNotes,
+  });
+
+  if (isLoading) {
+    return <CircularProgress />;
+  }
+  const { results: notes } = data;
+
   return (
     <AuthGuard requireAuth={true}>
       <DashboardContainer>
@@ -36,7 +49,9 @@ const Dashboard = () => {
         <AddNoteModal open={openModal} onClose={() => setOpenModal(false)} />
 
         <NotesContainer>
-          <NoteCard></NoteCard>
+          {notes.map((note: Note) => (
+            <NoteCard key={note._id} note={note} />
+          ))}
         </NotesContainer>
       </DashboardContainer>
     </AuthGuard>
