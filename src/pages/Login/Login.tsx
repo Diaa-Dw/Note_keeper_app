@@ -12,13 +12,13 @@ import { LoginFormData } from "./Login.type";
 import { emailValidation, passwordValidation } from "./Login.schema";
 import { useMutation } from "@tanstack/react-query";
 import login from "./api/login";
-import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useAuthDispatch } from "../../contexts/Auth/useAuth";
 import AuthGuard from "../../components/AuthGuard";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  console.log(Cookies.get("jwt"));
+  const navigate = useNavigate();
   const dispatch = useAuthDispatch();
   const {
     register,
@@ -31,7 +31,9 @@ const Login = () => {
     onSuccess: ({ user, token }) => {
       toast.success(`Welcome back, ${user.username}!`);
       dispatch({ type: "LOGIN", payload: { user, token } });
+      navigate("/");
     },
+
     onError: (error) => {
       toast.error(
         error?.message || "Somting went wrong while login please try again."
