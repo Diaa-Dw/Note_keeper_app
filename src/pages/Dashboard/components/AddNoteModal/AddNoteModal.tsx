@@ -15,6 +15,9 @@ import { CloseRounded, TitleRounded } from "@mui/icons-material";
 import { contentValidation, titleValidation } from "./Note.schema";
 import FormTextarea from "../FormTextarea";
 import { DialogHeader, StyledModalDialog } from "./AddNote.style";
+import { useMutation } from "@tanstack/react-query";
+import { createNewNote } from "../../api/note.api";
+import toast from "react-hot-toast";
 
 const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
   const {
@@ -22,6 +25,23 @@ const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<AddNoteForm>();
+
+  const noteMutation = useMutation({
+    mutationFn: createNewNote,
+    onSuccess: (data) => {
+      toast.success(`${data.title} has been created!`);
+      onClose();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const onAddNote = (data: AddNoteForm) => {
+    const { title, content } = data;
+    noteMutation.mutate({ title, content });
+  };
+
   return (
     <Modal open={open} onClose={onClose}>
       <StyledModalDialog>
@@ -37,10 +57,7 @@ const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
         <Stack
           spacing={2}
           component={"form"}
-          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-            onClose();
-          }}
+          onSubmit={handleSubmit(onAddNote)}
         >
           <FormInput
             label='Title'
@@ -65,7 +82,13 @@ const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
             error={errors?.content?.message}
           />
 
-          <Button size='lg'>Add Note</Button>
+          <Button
+            type='submit'
+            size='lg'
+            loading={noteMutation.isPending || isSubmitting}
+          >
+            Add Note
+          </Button>
         </Stack>
       </StyledModalDialog>
     </Modal>
