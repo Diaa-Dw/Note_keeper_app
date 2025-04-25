@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AUthGuard } from "./AuthGuard.type";
 import Cookies from "js-cookie";
-import { StyledCircularProgress } from "./AuthGurad.style";
+import CircularProgress from "../CirculareProgress";
 
 const AuthGuard = ({ requireAuth, children }: AUthGuard) => {
   const [checking, setChecking] = useState(true);
@@ -19,7 +19,7 @@ const AuthGuard = ({ requireAuth, children }: AUthGuard) => {
     }
   }, [requireAuth, navigate]);
 
-  if (checking) return <StyledCircularProgress />;
+  if (checking) return <CircularProgress />;
 
   return <>{children}</>;
 };
