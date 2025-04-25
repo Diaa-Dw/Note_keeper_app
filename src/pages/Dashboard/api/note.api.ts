@@ -22,7 +22,36 @@ export const createNewNote = async ({
         },
       }
     );
-    
+
+    return res.data.data;
+  } catch (error: unknown) {
+    console.log("🚀 ~ login ~ error:", error);
+    if (axios.isAxiosError(error)) {
+      const message =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Login failed. Please check your credentials.";
+      throw new Error(message);
+    } else {
+      throw new Error("An unexpected error occurred.");
+    }
+  }
+};
+
+export const fetchNotes = async () => {
+  try {
+    const token = Cookies.get("jwt");
+
+    const res = await axios.get(
+      API_URL,
+
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
     return res.data.data;
   } catch (error: unknown) {
     console.log("🚀 ~ login ~ error:", error);
