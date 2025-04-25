@@ -18,4 +18,5 @@ export const ActionsBox = styled(Box)(() => ({
 export const NotesContainer = styled(Box)(() => ({
   display: "flex",
   flexGrow: 1,
+  margin: "2rem 0",
 }));
