@@ -1,23 +1,14 @@
-import {
-  Button,
-  DialogContent,
-  DialogTitle,
-  Modal,
-  ModalDialog,
-  Stack,
-  Typography,
-} from "@mui/joy";
-import React from "react";
-import { AddNoteForm, AddNoteModalProps } from "./AddNoteModal.type";
-import { useForm } from "react-hook-form";
-import FormInput from "../../../../components/FormInput";
 import { CloseRounded, TitleRounded } from "@mui/icons-material";
-import { contentValidation, titleValidation } from "./Note.schema";
+import { Button, DialogTitle, Modal, Stack, Typography } from "@mui/joy";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import FormInput from "../../../../components/FormInput";
+import { createNewNote } from "../../api/note.api";
 import FormTextarea from "../FormTextarea";
 import { DialogHeader, StyledModalDialog } from "./AddNote.style";
-import { useMutation } from "@tanstack/react-query";
-import { createNewNote } from "../../api/note.api";
-import toast from "react-hot-toast";
+import { AddNoteForm, AddNoteModalProps } from "./AddNoteModal.type";
+import { contentValidation, titleValidation } from "./Note.schema";
 
 const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
   const {
