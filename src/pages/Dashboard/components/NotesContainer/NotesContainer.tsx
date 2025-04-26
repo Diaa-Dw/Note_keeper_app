@@ -1,6 +1,6 @@
 import { Box } from "@mui/joy";
 import { Pagination } from "@mui/material";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import CircularProgress from "../../../../components/CirculareProgress";
 import { fetchNotes, searchNotes } from "../../api/note.api";
@@ -9,8 +9,9 @@ import {
   PaginationContainer,
   StyledNotesContainer,
 } from "./NoteContainer.style";
+import { NoteContainerProps } from "./NoteContainer.type";
 
-const NotesContainer = ({ debouncedTerm }) => {
+const NotesContainer = ({ debouncedTerm }: NoteContainerProps) => {
   const [page, setPage] = useState(1);
   const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["notes", page, debouncedTerm],
