@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/joy";
-import { SignupnCard, SignupnWrapper } from "./Signup.style";
+import { SignupnCard, SignupnWrapper } from "./styles/Signup.style";
 import FormInput from "../../components/FormInput";
 import { useForm } from "react-hook-form";
 import { EmailRounded, Person } from "@mui/icons-material";
@@ -9,10 +9,10 @@ import {
   emailValidation,
   passwordValidation,
   usernameValidation,
-} from "./Signup.schema";
+} from "./validation/Signup.schema";
 import { useMutation } from "@tanstack/react-query";
 import signup from "./api/signup.auth";
-import { SignupFormData } from "./Signup.type";
+import { SignupFormData } from "./types/Signup.type";
 import toast from "react-hot-toast";
 import AuthGuard from "../../components/AuthGuard";
 import { Link } from "react-router-dom";

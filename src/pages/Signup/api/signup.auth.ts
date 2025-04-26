@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SignupFormData } from "../Signup.type";
+import { SignupFormData } from "../types/Signup.type";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 
 const API_URL = "https://fts-note-keeper-2.onrender.com/api/v1/users/register";
