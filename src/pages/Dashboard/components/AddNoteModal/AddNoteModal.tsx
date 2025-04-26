@@ -1,6 +1,6 @@
 import { CloseRounded, TitleRounded } from "@mui/icons-material";
 import { Button, DialogTitle, Modal, Stack, Typography } from "@mui/joy";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import FormInput from "../../../../components/FormInput";
@@ -17,10 +17,12 @@ const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
     formState: { errors, isSubmitting },
   } = useForm<AddNoteForm>();
 
+  const queryClient = useQueryClient();
   const noteMutation = useMutation({
     mutationFn: createNewNote,
     onSuccess: (data) => {
       toast.success(`${data.title} has been created!`);
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
       onClose();
     },
     onError: (error) => {

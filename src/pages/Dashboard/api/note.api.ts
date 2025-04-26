@@ -49,6 +49,9 @@ export const fetchNotes = async () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params: {
+          limit: "15",
+        },
       }
     );
 
