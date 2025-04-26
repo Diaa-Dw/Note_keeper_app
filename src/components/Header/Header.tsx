@@ -6,10 +6,9 @@ import { useAuthState } from "../../contexts/Auth/useAuth";
 const Header = () => {
   const { user, isAuthenticated } = useAuthState();
   const profileImage = user?.photo;
-  console.log("🚀 ~ Header ~ user:", user);
   return (
     <StyledHeader component={"header"}>
-      <LogoLink href='/'>
+      <LogoLink to={"/"}>
         <ImportContactsRoundedIcon />
         <Typography component='h1' level='h1'>
           NoteKeeper
