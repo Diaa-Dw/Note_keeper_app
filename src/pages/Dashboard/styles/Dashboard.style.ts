@@ -15,16 +15,5 @@ export const ActionsBox = styled(Box)(() => ({
   gap: "8px",
 }));
 
-export const NotesContainer = styled(Box)(() => ({
-  display: "flex",
-  justifyContent: "center",
-  flexWrap: "wrap",
-  gap: "16px",
-  flexGrow: 1,
-  margin: "2rem 0",
-}));
 
-export const PaginationContainer = styled(Box)(() => ({
-  display: "flex",
-  justifyContent: "center",
-}));
+

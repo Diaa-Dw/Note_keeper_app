@@ -108,3 +108,31 @@ export const updateNote = async (
     );
   }
 };
+
+export const searchNotes = async (
+  searchTerm: string,
+  page: number,
+  limit = 15
+) => {
+  try {
+    const token = Cookies.get("jwt");
+
+    const res = await axios.get(`${API_URL}/search`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        query: searchTerm,
+        page,
+        limit,
+      },
+    });
+
+    return res.data.data;
+  } catch (error: unknown) {
+    handleAxiosError(
+      error,
+      "An unexpected error occurred while updating the note."
+    );
+  }
+};

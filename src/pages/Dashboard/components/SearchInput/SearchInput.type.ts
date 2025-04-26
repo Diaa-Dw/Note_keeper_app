@@ -1,5 +1,7 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface SearchInputProps {
   type: string;
   placeholder: string;
-  onChange: () => void;
+  setDebouncedTerm: Dispatch<SetStateAction<string>>;
 }
