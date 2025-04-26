@@ -1,21 +1,21 @@
-import FormInput from "../../components/FormInput";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
+import { Button, Link, Typography } from "@mui/joy";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import AuthGuard from "../../components/AuthGuard";
+import FormInput from "../../components/FormInput";
+import PasswordInput from "../../components/PasswordInput";
+import { useAuthDispatch } from "../../contexts/Auth/useAuth";
+import login from "./api/login.auth";
 import {
   LoginCard,
   LoginWrapper,
   RightAlignedLinkWrapper,
-} from "./Login.style";
-import { Button, Link, Typography } from "@mui/joy";
-import PasswordInput from "../../components/PasswordInput";
-import { useForm } from "react-hook-form";
-import { LoginFormData } from "./Login.type";
-import { emailValidation, passwordValidation } from "./Login.schema";
-import { useMutation } from "@tanstack/react-query";
-import login from "./api/login.auth";
-import toast from "react-hot-toast";
-import { useAuthDispatch } from "../../contexts/Auth/useAuth";
-import AuthGuard from "../../components/AuthGuard";
-import { useNavigate } from "react-router-dom";
+} from "./styles/Login.style";
+import { LoginFormData } from "./types/Login.type";
+import { emailValidation, passwordValidation } from "./validation/Login.schema";
 
 const Login = () => {
   const navigate = useNavigate();

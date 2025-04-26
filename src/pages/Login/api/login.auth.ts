@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginFormData } from "../Login.type";
+import { LoginFormData } from "../types/Login.type";
 import Cookies from "js-cookie";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 
