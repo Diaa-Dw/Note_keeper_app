@@ -1,9 +1,9 @@
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import { Button, Link, Typography } from "@mui/joy";
+import { Button, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthGuard from "../../components/AuthGuard";
 import FormInput from "../../components/FormInput";
 import PasswordInput from "../../components/PasswordInput";
@@ -83,19 +83,14 @@ const Login = () => {
           </Button>
 
           <RightAlignedLinkWrapper>
-            <Link level='body-sm' color='neutral' href='/forgotPassword'>
+            <Link className='link secondary' to='/forgotPassword'>
               Forgot Password?
             </Link>
           </RightAlignedLinkWrapper>
 
           <Typography level='body-sm' textAlign='center' fontSize='1.2rem'>
             Don&apos;t have an account?{" "}
-            <Link
-              level='body-sm'
-              fontWeight={500}
-              color='success'
-              href='/signup'
-            >
+            <Link className='link primary' to='/signup'>
               Sign up
             </Link>
           </Typography>

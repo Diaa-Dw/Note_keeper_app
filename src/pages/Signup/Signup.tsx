@@ -1,4 +1,4 @@
-import { Button, Link, Typography } from "@mui/joy";
+import { Button, Typography } from "@mui/joy";
 import { SignupnCard, SignupnWrapper } from "./Signup.style";
 import FormInput from "../../components/FormInput";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,7 @@ import signup from "./api/signup.auth";
 import { SignupFormData } from "./Signup.type";
 import toast from "react-hot-toast";
 import AuthGuard from "../../components/AuthGuard";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const {
@@ -103,12 +104,7 @@ const Signup = () => {
 
           <Typography level='body-sm' textAlign='center' fontSize='1.2rem'>
             Already have an account?{" "}
-            <Link
-              level='body-sm'
-              fontWeight={500}
-              color='success'
-              href='/login'
-            >
+            <Link className='link primary' to='/login'>
               Login
             </Link>
           </Typography>

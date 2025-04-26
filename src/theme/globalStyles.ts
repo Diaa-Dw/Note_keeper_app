@@ -14,12 +14,19 @@ const globalStyles = {
     display: "flex",
     flexDirection: "column",
   },
-  a: {
-    color: "var(--joy-palette-primary-plainColor)",
-    transition: "all .2s ease-in",
+  "a.link": {
+    fontSize: "1.2rem",
+    textDecoration: "none",
+    transition: "color .2s ease-in-out",
     "&:hover": {
       color: "var(--joy-palette-primary-solidBg)",
     },
+  },
+  "a.primary": {
+    color: "var(--joy-palette-primary-solidHoverBg)",
+  },
+  "a.secondary": {
+    color: "var(--joy-palette-text-secondary)",
   },
   "input:-webkit-autofill": {
     boxShadow: "0 0 0 1000px var(--joy-palette-background-body) inset",
