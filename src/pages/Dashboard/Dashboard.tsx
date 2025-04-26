@@ -61,14 +61,16 @@ const Dashboard = () => {
           ))}
         </NotesContainer>
 
-        <PaginationContainer>
-          <Pagination
-            count={pagination.totalPages}
-            page={page}
-            color='primary'
-            onChange={(_, value) => setPage(value)}
-          />
-        </PaginationContainer>
+        {pagination.totalPages > 1 && (
+          <PaginationContainer>
+            <Pagination
+              count={pagination.totalPages}
+              page={page}
+              color='primary'
+              onChange={(_, value) => setPage(value)}
+            />
+          </PaginationContainer>
+        )}
       </DashboardContainer>
     </AuthGuard>
   );
