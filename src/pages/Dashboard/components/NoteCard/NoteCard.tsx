@@ -6,9 +6,12 @@ import { deleteNote } from "../../api/note.api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal";
 import { NoteHeader } from "./NoteCard.style";
 import { NoteCardProps } from "./NoteCard.type";
+import EditNoteModal from "../EditNoteModal";
 
 const NoteCard = ({ note }: NoteCardProps) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+
   const { title, content, _id } = note;
   const queryClient = useQueryClient();
   const deleteMutation = useMutation({
@@ -28,7 +31,12 @@ const NoteCard = ({ note }: NoteCardProps) => {
       <NoteHeader>
         <Typography level='h3'>{title}</Typography>
         <Box>
-          <Button variant='plain' color='neutral' size='sm'>
+          <Button
+            variant='plain'
+            color='neutral'
+            size='sm'
+            onClick={() => setOpenEditModal(true)}
+          >
             <Typography>
               <EditNoteRounded />
             </Typography>
@@ -57,6 +65,14 @@ const NoteCard = ({ note }: NoteCardProps) => {
         open={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}
         onConfirm={onDeleteNote}
+      />
+
+      <EditNoteModal
+        open={openEditModal}
+        title={title}
+        content={content}
+        noteId={_id}
+        onClose={() => setOpenEditModal(false)}
       />
     </Card>
   );
