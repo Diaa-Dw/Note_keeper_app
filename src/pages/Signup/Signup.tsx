@@ -1,21 +1,20 @@
-import { Button, Typography } from "@mui/joy";
-import { SignupnCard, SignupnWrapper } from "./styles/Signup.style";
-import FormInput from "../../components/FormInput";
-import { useForm } from "react-hook-form";
 import { EmailRounded, Person } from "@mui/icons-material";
+import { Button, Typography } from "@mui/joy";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import FormInput from "../../components/FormInput";
 import PasswordInput from "../../components/PasswordInput";
+import signup from "./api/signup.auth";
+import { SignupnCard, SignupnWrapper } from "./styles/Signup.style";
+import { SignupFormData } from "./types/Signup.type";
 import {
   confirmPasswordValidation,
   emailValidation,
   passwordValidation,
   usernameValidation,
 } from "./validation/Signup.schema";
-import { useMutation } from "@tanstack/react-query";
-import signup from "./api/signup.auth";
-import { SignupFormData } from "./types/Signup.type";
-import toast from "react-hot-toast";
-import AuthGuard from "../../components/AuthGuard";
-import { Link } from "react-router-dom";
 
 const Signup = () => {
   const {
@@ -49,68 +48,66 @@ const Signup = () => {
   };
 
   return (
-    <AuthGuard requireAuth={false}>
-      <SignupnWrapper>
-        <SignupnCard component={"form"} onSubmit={handleSubmit(onSignup)}>
-          <Typography component={"h2"} level='h2'>
-            Create your account
-          </Typography>
+    <SignupnWrapper>
+      <SignupnCard component={"form"} onSubmit={handleSubmit(onSignup)}>
+        <Typography component={"h2"} level='h2'>
+          Create your account
+        </Typography>
 
-          <FormInput
-            label='Full Name'
-            id='username'
-            type='text'
-            placeholder='Full Name'
-            startDecorator={<Person />}
-            register={register}
-            validation={usernameValidation}
-            error={errors.username?.message}
-          />
+        <FormInput
+          label='Full Name'
+          id='username'
+          type='text'
+          placeholder='Full Name'
+          startDecorator={<Person />}
+          register={register}
+          validation={usernameValidation}
+          error={errors.username?.message}
+        />
 
-          <FormInput
-            label='Email'
-            type='email'
-            id='email'
-            placeholder='example@gmail.com'
-            startDecorator={<EmailRounded />}
-            register={register}
-            validation={emailValidation}
-            error={errors.email?.message}
-          />
+        <FormInput
+          label='Email'
+          type='email'
+          id='email'
+          placeholder='example@gmail.com'
+          startDecorator={<EmailRounded />}
+          register={register}
+          validation={emailValidation}
+          error={errors.email?.message}
+        />
 
-          <PasswordInput
-            label='Password'
-            id='password'
-            register={register}
-            validation={passwordValidation}
-            error={errors.password?.message}
-          />
+        <PasswordInput
+          label='Password'
+          id='password'
+          register={register}
+          validation={passwordValidation}
+          error={errors.password?.message}
+        />
 
-          <PasswordInput
-            label='Confirm Password'
-            id='confirmPassword'
-            register={register}
-            validation={confirmPasswordValidation(password)}
-            error={errors.confirmPassword?.message}
-          />
+        <PasswordInput
+          label='Confirm Password'
+          id='confirmPassword'
+          register={register}
+          validation={confirmPasswordValidation(password)}
+          error={errors.confirmPassword?.message}
+        />
 
-          <Button
-            type='submit'
-            size='lg'
-            loading={signupMutation.isPending || isSubmitting}
-          >
-            Sign up
-          </Button>
+        <Button
+          type='submit'
+          size='lg'
+          loading={signupMutation.isPending || isSubmitting}
+        >
+          Sign up
+        </Button>
 
-          <Typography level='body-sm' textAlign='center' fontSize='1.2rem'>
-            Already have an account?{" "}
-            <Link className='link primary' to='/login'>
-              Login
-            </Link>
-          </Typography>
-        </SignupnCard>
-      </SignupnWrapper>
-    </AuthGuard>
+        <Typography level='body-sm' textAlign='center' fontSize='1.2rem'>
+          Already have an account?{" "}
+          <Link className='link primary' to='/login'>
+            Login
+          </Link>
+        </Typography>
+      </SignupnCard>
+    </SignupnWrapper>
   );
 };
 
