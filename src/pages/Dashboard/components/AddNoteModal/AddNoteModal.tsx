@@ -8,7 +8,7 @@ import { createNewNote } from "../../api/note.api";
 import FormTextarea from "../FormTextarea";
 import { StyledModalDialog } from "./AddNote.style";
 import { AddNoteForm, AddNoteModalProps } from "./AddNoteModal.type";
-import { contentValidation, titleValidation } from "./Note.schema";
+import { contentValidation, titleValidation } from "../../validation/Note.schema";
 
 const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
   const {
