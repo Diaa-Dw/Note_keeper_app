@@ -17,10 +17,7 @@ const useLoadAuth = (dispatch: Dispatch<AuthAction>) => {
       if (token && user) {
         dispatch({
           type: "LOGIN",
-          payload: {
-            user,
-            token,
-          },
+          payload: user,
         });
       }
     } catch (error: unknown) {
