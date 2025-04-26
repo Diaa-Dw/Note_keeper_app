@@ -1,15 +1,28 @@
 import { DeleteRounded, EditNoteRounded } from "@mui/icons-material";
-import { Card, Typography, CardContent, Button, Box } from "@mui/joy";
+import { Box, Button, Card, CardContent, Typography } from "@mui/joy";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { deleteNote } from "../../api/note.api";
+import ConfirmDeleteModal from "../ConfirmDeleteModal";
 import { NoteHeader } from "./NoteCard.style";
 import { NoteCardProps } from "./NoteCard.type";
-import { useState } from "react";
-import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
-import { useMutation } from "@tanstack/react-query";
 
 const NoteCard = ({ note }: NoteCardProps) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const { title, content, _id } = note;
+  const queryClient = useQueryClient();
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteNote(_id),
+    onSuccess: (data) => {
+      console.log("🚀 ~ NoteCard ~ data:", data);
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+    },
+  });
 
-  const { title, content } = note;
+  const onDeleteNote = () => {
+    deleteMutation.mutate();
+    setOpenDeleteModal(false);
+  };
   return (
     <Card sx={{ width: 380 }} variant='outlined'>
       <NoteHeader>
@@ -43,7 +56,7 @@ const NoteCard = ({ note }: NoteCardProps) => {
       <ConfirmDeleteModal
         open={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}
-        onConfirm={() => {}}
+        onConfirm={onDeleteNote}
       />
     </Card>
   );

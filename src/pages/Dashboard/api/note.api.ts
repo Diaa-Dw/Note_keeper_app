@@ -70,3 +70,31 @@ export const fetchNotes = async (page = 1) => {
     }
   }
 };
+
+export const deleteNote = async (noteId: string) => {
+  try {
+    const token = Cookies.get("jwt");
+
+    const res = await axios.delete(
+      `${API_URL}/${noteId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return res.data.data;
+  } catch (error: unknown) {
+    console.log("🚀 ~ login ~ error:", error);
+    if (axios.isAxiosError(error)) {
+      const message =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Login failed. Please check your credentials.";
+      throw new Error(message);
+    } else {
+      throw new Error("An unexpected error occurred.");
+    }
+  }
+};
