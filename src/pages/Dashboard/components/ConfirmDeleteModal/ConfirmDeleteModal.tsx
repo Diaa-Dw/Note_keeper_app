@@ -1,10 +1,15 @@
 import { Modal, ModalDialog, Button, Typography, Stack } from "@mui/joy";
+import { ConfirmDeleteModalProps } from "./ConfirmDeleteModal.type";
 
-export default function ConfirmDeleteModal({ open, onClose, onConfirm }) {
+export default function ConfirmDeleteModal({
+  open,
+  onClose,
+  onConfirm,
+}: ConfirmDeleteModalProps) {
   return (
     <Modal open={open} onClose={onClose}>
       <ModalDialog variant='outlined'>
-        <Typography level='h4'>Confirm Deletion</Typography>
+        <Typography level='h3'>Confirm Deletion</Typography>
         <Typography>
           Are you sure you want to delete this item? This action cannot be
           undone.
