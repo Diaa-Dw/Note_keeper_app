@@ -38,7 +38,7 @@ export const createNewNote = async ({
   }
 };
 
-export const fetchNotes = async () => {
+export const fetchNotes = async (page = 1) => {
   try {
     const token = Cookies.get("jwt");
 
@@ -51,6 +51,7 @@ export const fetchNotes = async () => {
         },
         params: {
           limit: "15",
+          page,
         },
       }
     );

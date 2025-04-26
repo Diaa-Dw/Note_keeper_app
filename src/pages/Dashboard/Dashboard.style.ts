@@ -23,3 +23,8 @@ export const NotesContainer = styled(Box)(() => ({
   flexGrow: 1,
   margin: "2rem 0",
 }));
+
+export const PaginationContainer = styled(Box)(() => ({
+  display: "flex",
+  justifyContent: "center",
+}));

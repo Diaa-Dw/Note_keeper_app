@@ -5,9 +5,10 @@ import {
   ActionsBox,
   DashboardContainer,
   NotesContainer,
+  PaginationContainer,
 } from "./Dashboard.style";
 import { Add } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddNoteModal from "./components/AddNoteModal";
 import NoteCard from "./components/NoteCard";
 import { useQuery } from "@tanstack/react-query";
@@ -18,16 +19,19 @@ import { Pagination } from "@mui/material";
 const Dashboard = () => {
   const [openModal, setOpenModal] = useState(false);
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["notes"],
-    queryFn: fetchNotes,
+    queryFn: () => fetchNotes(page),
   });
 
-  if (isLoading) {
+  useEffect(() => {
+    refetch();
+  }, [page, refetch]);
+
+  if (isLoading || isFetching) {
     return <CircularProgress />;
   }
   const { results: notes, pagination } = data;
-  console.log("🚀 ~ Dashboard ~ data:", data);
 
   return (
     <AuthGuard requireAuth={true}>
@@ -57,12 +61,14 @@ const Dashboard = () => {
           ))}
         </NotesContainer>
 
-        <Pagination
-          count={pagination.totalPages}
-          page={page}
-          color='primary'
-          onChange={(_, value) => setPage(value)}
-        />
+        <PaginationContainer>
+          <Pagination
+            count={pagination.totalPages}
+            page={page}
+            color='primary'
+            onChange={(_, value) => setPage(value)}
+          />
+        </PaginationContainer>
       </DashboardContainer>
     </AuthGuard>
   );
