@@ -1,19 +1,46 @@
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
-import Login from "./pages/Login";
 import { Toaster } from "react-hot-toast";
-import Signup from "./pages/Signup";
-import Dashboard from "./pages/Dashboard";
+import AuthGuard from "./components/AuthGuard";
+import CircularProgress from "./components/CirculareProgress";
+
+const Login = lazy(() => import("./pages/Login"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 function App() {
   return (
     <>
       <Header />
-      <Routes>
-        <Route path='/' element={<Dashboard />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-      </Routes>
+      <Suspense fallback={<CircularProgress />}>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <AuthGuard requireAuth={true}>
+                <Dashboard />
+              </AuthGuard>
+            }
+          />
+          <Route
+            path='/login'
+            element={
+              <AuthGuard requireAuth={false}>
+                <Login />
+              </AuthGuard>
+            }
+          />
+          <Route
+            path='/signup'
+            element={
+              <AuthGuard requireAuth={false}>
+                <Signup />
+              </AuthGuard>
+            }
+          />
+        </Routes>
+      </Suspense>
       <Toaster position='top-center' />
     </>
   );
