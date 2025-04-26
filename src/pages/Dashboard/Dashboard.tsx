@@ -13,9 +13,11 @@ import NoteCard from "./components/NoteCard";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "./api/note.api";
 import CircularProgress from "../../components/CirculareProgress";
+import { Pagination } from "@mui/material";
 
 const Dashboard = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [page, setPage] = useState(1);
   const { data, isLoading } = useQuery({
     queryKey: ["notes"],
     queryFn: fetchNotes,
@@ -24,7 +26,8 @@ const Dashboard = () => {
   if (isLoading) {
     return <CircularProgress />;
   }
-  const { results: notes } = data;
+  const { results: notes, pagination } = data;
+  console.log("🚀 ~ Dashboard ~ data:", data);
 
   return (
     <AuthGuard requireAuth={true}>
@@ -53,6 +56,13 @@ const Dashboard = () => {
             <NoteCard key={note._id} note={note} />
           ))}
         </NotesContainer>
+
+        <Pagination
+          count={pagination.totalPages}
+          page={page}
+          color='primary'
+          onChange={(_, value) => setPage(value)}
+        />
       </DashboardContainer>
     </AuthGuard>
   );
