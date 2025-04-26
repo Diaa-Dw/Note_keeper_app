@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { LoginFormData } from "./Login.type";
 import { emailValidation, passwordValidation } from "./Login.schema";
 import { useMutation } from "@tanstack/react-query";
-import login from "./api/login";
+import login from "./api/login.auth";
 import toast from "react-hot-toast";
 import { useAuthDispatch } from "../../contexts/Auth/useAuth";
 import AuthGuard from "../../components/AuthGuard";
@@ -28,10 +28,12 @@ const Login = () => {
 
   const loginMutation = useMutation({
     mutationFn: login,
-    onSuccess: ({ user, token }) => {
-      toast.success(`Welcome back, ${user.username}!`);
-      dispatch({ type: "LOGIN", payload: { user, token } });
-      navigate("/");
+    onSuccess: (user: User | undefined) => {
+      if (user) {
+        toast.success(`Welcome back, ${user.username}!`);
+        dispatch({ type: "LOGIN", payload: user });
+        navigate("/");
+      }
     },
 
     onError: (error) => {

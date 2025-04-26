@@ -4,6 +4,4 @@ export interface AuthState {
   token: string | null;
 }
 
-export type AuthAction =
-  | { type: "LOGIN"; payload: { user: User; token: string } }
-  | { type: "LOGOUT" };
+export type AuthAction = { type: "LOGIN"; payload: User } | { type: "LOGOUT" };

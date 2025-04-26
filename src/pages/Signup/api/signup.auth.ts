@@ -1,5 +1,6 @@
 import axios from "axios";
 import { SignupFormData } from "../Signup.type";
+import { handleAxiosError } from "../../../utils/handleAxiosError";
 
 const API_URL = "https://fts-note-keeper-2.onrender.com/api/v1/users/register";
 const signup = async ({
@@ -27,13 +28,10 @@ const signup = async ({
     const data = res.data.data;
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const message =
-        error?.response?.data?.message || error?.message || "Signup failed.";
-      throw new Error(message);
-    } else {
-      throw new Error("An unexpected error occurred while signup.");
-    }
+    handleAxiosError(
+      error,
+      "An unexpected error occurred while signing up. Please try again later."
+    );
   }
 };
 

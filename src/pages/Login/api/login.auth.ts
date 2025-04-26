@@ -1,6 +1,7 @@
 import axios from "axios";
 import { LoginFormData } from "../Login.type";
 import Cookies from "js-cookie";
+import { handleAxiosError } from "../../../utils/handleAxiosError";
 
 const API_URL = "http://127.0.0.1:8080/api/v1/users/login";
 
@@ -23,35 +24,32 @@ const login = async ({ email, password }: LoginFormData) => {
       }
     );
 
+    if (res.data.status !== "success") {
+      throw new Error(
+        "An unexpected error occurred while logging in. Please try again later."
+      );
+    }
     const data = res.data.data;
     const user = {
       id: data.user._id,
       username: data.user.username,
       photo: data.user?.photo || "",
     };
-    const token = data.token;
-    //store the user data in local storage
-    if (data) {
-      localStorage.setItem("user", JSON.stringify(user));
-      Cookies.set("jwt", data.token, {
-        expires: 7,
-        sameSite: "Lax",
-        secure: true,
-      });
-    }
 
-    return { user, token };
+    //store the user data in local storage
+    localStorage.setItem("user", JSON.stringify(user));
+    Cookies.set("jwt", data.token, {
+      expires: 7,
+      sameSite: "Lax",
+      secure: true,
+    });
+
+    return user;
   } catch (error: unknown) {
-    console.log("🚀 ~ login ~ error:", error);
-    if (axios.isAxiosError(error)) {
-      const message =
-        error?.response?.data?.message ||
-        error?.message ||
-        "Login failed. Please check your credentials.";
-      throw new Error(message);
-    } else {
-      throw new Error("An unexpected error occurred.");
-    }
+    handleAxiosError(
+      error,
+      "An unexpected error occurred while logging in. Please try again later."
+    );
   }
 };
 
