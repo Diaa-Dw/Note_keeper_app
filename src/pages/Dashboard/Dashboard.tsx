@@ -1,36 +1,14 @@
-import { Button } from "@mui/joy";
-import SearchInput from "./components/SearchInput";
-import {
-  ActionsBox,
-  DashboardContainer,
-  NotesContainer,
-  PaginationContainer,
-} from "./styles/Dashboard.style";
 import { Add } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { Button } from "@mui/joy";
+import { useState } from "react";
 import AddNoteModal from "./components/AddNoteModal";
-import NoteCard from "./components/NoteCard";
-import { useQuery } from "@tanstack/react-query";
-import { fetchNotes } from "./api/note.api";
-import CircularProgress from "../../components/CirculareProgress";
-import { Pagination } from "@mui/material";
+import SearchInput from "./components/SearchInput";
+import { ActionsBox, DashboardContainer } from "./styles/Dashboard.style";
+import NotesContainer from "./components/NotesContainer";
 
 const Dashboard = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, refetch } = useQuery({
-    queryKey: ["notes"],
-    queryFn: () => fetchNotes(page),
-  });
-
-  useEffect(() => {
-    refetch();
-  }, [page, refetch]);
-
-  if (isLoading || isFetching) {
-    return <CircularProgress />;
-  }
-  const { results: notes, pagination } = data;
+  const [debouncedTerm, setDebouncedTerm] = useState("");
 
   return (
     <DashboardContainer>
@@ -38,7 +16,7 @@ const Dashboard = () => {
         <SearchInput
           type='search'
           placeholder='Search a note'
-          onChange={() => {}}
+          setDebouncedTerm={setDebouncedTerm}
         />
 
         <Button
@@ -51,24 +29,9 @@ const Dashboard = () => {
         </Button>
       </ActionsBox>
 
+      <NotesContainer debouncedTerm={debouncedTerm} />
+
       <AddNoteModal open={openModal} onClose={() => setOpenModal(false)} />
-
-      <NotesContainer>
-        {notes.map((note: Note) => (
-          <NoteCard key={note._id} note={note} />
-        ))}
-      </NotesContainer>
-
-      {pagination.totalPages > 1 && (
-        <PaginationContainer>
-          <Pagination
-            count={pagination.totalPages}
-            page={page}
-            color='primary'
-            onChange={(_, value) => setPage(value)}
-          />
-        </PaginationContainer>
-      )}
     </DashboardContainer>
   );
 };
