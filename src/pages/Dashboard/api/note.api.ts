@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { handleAxiosError } from "../../../utils/handleAxiosError";
 
 const API_URL = "http://127.0.0.1:8080/api/v1/notes";
 
@@ -25,16 +26,10 @@ export const createNewNote = async ({
 
     return res.data.data;
   } catch (error: unknown) {
-    console.log("🚀 ~ login ~ error:", error);
-    if (axios.isAxiosError(error)) {
-      const message =
-        error?.response?.data?.message ||
-        error?.message ||
-        "Login failed. Please check your credentials.";
-      throw new Error(message);
-    } else {
-      throw new Error("An unexpected error occurred.");
-    }
+    handleAxiosError(
+      error,
+      "An unexpected error occurred while creating the note."
+    );
   }
 };
 
@@ -58,16 +53,10 @@ export const fetchNotes = async (page = 1) => {
 
     return res.data.data;
   } catch (error: unknown) {
-    console.log("🚀 ~ login ~ error:", error);
-    if (axios.isAxiosError(error)) {
-      const message =
-        error?.response?.data?.message ||
-        error?.message ||
-        "Login failed. Please check your credentials.";
-      throw new Error(message);
-    } else {
-      throw new Error("An unexpected error occurred.");
-    }
+    handleAxiosError(
+      error,
+      "An unexpected error occurred while fetching notes."
+    );
   }
 };
 
@@ -83,16 +72,10 @@ export const deleteNote = async (noteId: string) => {
 
     return res.data.data;
   } catch (error: unknown) {
-    console.log("🚀 ~ login ~ error:", error);
-    if (axios.isAxiosError(error)) {
-      const message =
-        error?.response?.data?.message ||
-        error?.message ||
-        "Login failed. Please check your credentials.";
-      throw new Error(message);
-    } else {
-      throw new Error("An unexpected error occurred.");
-    }
+    handleAxiosError(
+      error,
+      "An unexpected error occurred while deleting the note."
+    );
   }
 };
 
@@ -119,15 +102,9 @@ export const updateNote = async (
 
     return res.data.data;
   } catch (error: unknown) {
-    console.log("🚀 ~ login ~ error:", error);
-    if (axios.isAxiosError(error)) {
-      const message =
-        error?.response?.data?.message ||
-        error?.message ||
-        "Login failed. Please check your credentials.";
-      throw new Error(message);
-    } else {
-      throw new Error("An unexpected error occurred.");
-    }
+    handleAxiosError(
+      error,
+      "An unexpected error occurred while updating the note."
+    );
   }
 };
