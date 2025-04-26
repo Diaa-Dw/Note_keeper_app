@@ -15,7 +15,7 @@ export default function ConfirmDeleteModal({
           undone.
         </Typography>
         <Stack direction='row' spacing={2} justifyContent='flex-end' mt={2}>
-          <Button variant='plain' color='neutral' onClick={onClose}>
+          <Button variant='outlined' color='neutral' onClick={onClose}>
             Cancel
           </Button>
           <Button variant='solid' color='danger' onClick={onConfirm}>

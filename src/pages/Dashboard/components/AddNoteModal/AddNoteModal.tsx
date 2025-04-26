@@ -1,12 +1,12 @@
-import { CloseRounded, TitleRounded } from "@mui/icons-material";
-import { Button, DialogTitle, Modal, Stack, Typography } from "@mui/joy";
+import { TitleRounded } from "@mui/icons-material";
+import { Button, Modal, Stack, Typography } from "@mui/joy";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import FormInput from "../../../../components/FormInput";
 import { createNewNote } from "../../api/note.api";
 import FormTextarea from "../FormTextarea";
-import { DialogHeader, StyledModalDialog } from "./AddNote.style";
+import { StyledModalDialog } from "./AddNote.style";
 import { AddNoteForm, AddNoteModalProps } from "./AddNoteModal.type";
 import { contentValidation, titleValidation } from "./Note.schema";
 
@@ -38,14 +38,7 @@ const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
   return (
     <Modal open={open} onClose={onClose}>
       <StyledModalDialog>
-        <DialogHeader>
-          <DialogTitle>
-            <Typography>Create new project</Typography>
-          </DialogTitle>
-          <Button variant='outlined' color='neutral' onClick={onClose}>
-            <CloseRounded />
-          </Button>
-        </DialogHeader>
+        <Typography level='h3'>Create new project</Typography>
 
         <Stack
           spacing={2}
@@ -75,13 +68,19 @@ const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
             error={errors?.content?.message}
           />
 
-          <Button
-            type='submit'
-            size='lg'
-            loading={noteMutation.isPending || isSubmitting}
-          >
-            Add Note
-          </Button>
+          <Stack direction='row' spacing={2} justifyContent='flex-end' mt={2}>
+            <Button variant='outlined' color='neutral' onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              variant='solid'
+              color='primary'
+              type='submit'
+              loading={noteMutation.isPending || isSubmitting}
+            >
+              Add Note
+            </Button>
+          </Stack>
         </Stack>
       </StyledModalDialog>
     </Modal>
