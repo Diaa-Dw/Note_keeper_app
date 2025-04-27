@@ -2,15 +2,16 @@ import { Close } from "@mui/icons-material";
 import {
   Avatar,
   Button,
-  Input,
   Modal,
   ModalDialog,
   Stack,
   Typography,
 } from "@mui/joy";
 import { useAuthState } from "../../../../contexts/Auth/useAuth";
+import ChangePasswordForm from "../ChangePassowrdForm";
+import { ProfileModalProps } from "./ProfileModal.type";
 
-const ProfileModal = ({ open, onClose }) => {
+const ProfileModal = ({ open, onClose }: ProfileModalProps) => {
   const { user } = useAuthState();
 
   return (
@@ -42,6 +43,8 @@ const ProfileModal = ({ open, onClose }) => {
         <Typography level='h4' component='h3' mb={1}>
           Change Password
         </Typography>
+
+        <ChangePasswordForm />
       </ModalDialog>
     </Modal>
   );

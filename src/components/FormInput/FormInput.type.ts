@@ -9,5 +9,5 @@ export interface FormInputProps {
   register: Register;
   validation: Validation;
   error?: string;
-  sx: SxProps;
+  sx?: SxProps;
 }
