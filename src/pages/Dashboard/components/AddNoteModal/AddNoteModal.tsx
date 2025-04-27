@@ -12,13 +12,19 @@ import {
   contentValidation,
   titleValidation,
 } from "../../validation/Note.schema";
+import { useEffect } from "react";
 
 const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<AddNoteForm>();
+
+  useEffect(() => {
+    reset();
+  }, [open, reset]);
 
   const queryClient = useQueryClient();
   const noteMutation = useMutation({
@@ -27,6 +33,7 @@ const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
       toast.success(`${data.title} has been created!`);
       queryClient.invalidateQueries({ queryKey: ["notes"] });
       onClose();
+      reset();
     },
     onError: (error) => {
       toast.error(error.message);
