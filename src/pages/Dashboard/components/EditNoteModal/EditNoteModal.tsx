@@ -52,7 +52,7 @@ const EditNoteModal = ({
 
   return (
     <Modal open={open} onClose={onClose}>
-      <ModalDialog sx={{ width: "90%", maxWidth: "450px" }}>
+      <ModalDialog sx={{ width: "90%", maxWidth: "550px" }}>
         <Stack spacing={2}>
           <Typography level='h3'>Edit Note</Typography>
 

@@ -19,7 +19,7 @@ const ShowNoteModal = ({
             </Button>
           </Stack>
 
-          <Typography>{content}</Typography>
+          <Typography sx={{ wordBreak: "break-all" }}>{content}</Typography>
         </Stack>
       </ModalDialog>
     </Modal>

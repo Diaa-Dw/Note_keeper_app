@@ -12,7 +12,7 @@ export const LoginCard = styled(Box)(({ theme }) => ({
   maxWidth: "420px",
   display: "flex",
   flexDirection: "column",
-  gap: "8px",
+  gap: "16px",
   boxShadow: theme.shadow.lg,
   padding: "2.5rem",
   borderRadius: "12px",

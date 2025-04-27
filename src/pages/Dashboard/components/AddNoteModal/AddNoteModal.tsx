@@ -8,7 +8,10 @@ import { createNewNote } from "../../api/note.api";
 import FormTextarea from "../FormTextarea";
 import { StyledModalDialog } from "./AddNote.style";
 import { AddNoteForm, AddNoteModalProps } from "./AddNoteModal.type";
-import { contentValidation, titleValidation } from "../../validation/Note.schema";
+import {
+  contentValidation,
+  titleValidation,
+} from "../../validation/Note.schema";
 
 const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
   const {
@@ -37,7 +40,7 @@ const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
 
   return (
     <Modal open={open} onClose={onClose}>
-      <StyledModalDialog>
+      <StyledModalDialog sx={{ width: "90%", maxWidth: "550px" }}>
         <Typography level='h3'>Create new project</Typography>
 
         <Stack

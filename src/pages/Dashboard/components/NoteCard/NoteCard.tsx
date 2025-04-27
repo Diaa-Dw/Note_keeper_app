@@ -63,7 +63,9 @@ const NoteCard = ({ note }: NoteCardProps) => {
       </NoteHeader>
 
       <CardContent>
-        <Typography>{previewContent}</Typography>
+        <Typography sx={{ wordBreak: "break-all" }}>
+          {previewContent}
+        </Typography>
         {isLongContent && (
           <Button
             variant='plain'
