@@ -28,9 +28,7 @@ const globalStyles = {
   "a.secondary": {
     color: "var(--joy-palette-text-secondary)",
   },
-  "input:-webkit-autofill": {
-    boxShadow: "0 0 0 1000px var(--joy-palette-background-body) inset",
-  },
+
 };
 
 export default globalStyles;

@@ -1,24 +1,12 @@
 import { CssVarsProvider, GlobalStyles } from "@mui/joy";
 import {
-  createTheme,
   ThemeProvider,
   THEME_ID as MATERIAL_THEME_ID,
 } from "@mui/material/styles";
 import { AppThemeProviderProps } from "./AppThemeProvider.type";
 import globalStyles from "./globalStyles";
 import theme from "./theme";
-
-const materialTheme = createTheme({
-  colorSchemes: {
-    light: {
-      palette: {
-        primary: {
-          main: "#00af81",
-        },
-      },
-    },
-  },
-});
+import materialTheme from "./matrialTheme";
 
 const AppThemeProvider = ({ children }: AppThemeProviderProps) => {
   return (
