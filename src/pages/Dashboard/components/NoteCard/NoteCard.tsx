@@ -4,15 +4,22 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { deleteNote } from "../../api/note.api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal";
+import EditNoteModal from "../EditNoteModal";
 import { NoteHeader } from "./NoteCard.style";
 import { NoteCardProps } from "./NoteCard.type";
-import EditNoteModal from "../EditNoteModal";
+import ShowNoteModal from "../ShowNoteModal";
 
 const NoteCard = ({ note }: NoteCardProps) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-
+  const [showFullNote, setShowFullNote] = useState(false);
   const { title, content, _id } = note;
+
+  const isLongContent = content.length > 100;
+  const previewContent = isLongContent
+    ? content.substring(0, 100) + "..."
+    : content;
+
   const queryClient = useQueryClient();
   const deleteMutation = useMutation({
     mutationFn: () => deleteNote(_id),
@@ -56,7 +63,16 @@ const NoteCard = ({ note }: NoteCardProps) => {
       </NoteHeader>
 
       <CardContent>
-        <Typography>{content}</Typography>
+        <Typography>{previewContent}</Typography>
+        {isLongContent && (
+          <Button
+            variant='plain'
+            onClick={() => setShowFullNote(true)}
+            sx={{ alignSelf: "flex-start", mt: "10px" }}
+          >
+            Show More
+          </Button>
+        )}
       </CardContent>
 
       <Typography>2025-04-24</Typography>
@@ -73,6 +89,13 @@ const NoteCard = ({ note }: NoteCardProps) => {
         content={content}
         noteId={_id}
         onClose={() => setOpenEditModal(false)}
+      />
+
+      <ShowNoteModal
+        open={showFullNote}
+        title={title}
+        content={content}
+        onClose={() => setShowFullNote(false)}
       />
     </Card>
   );

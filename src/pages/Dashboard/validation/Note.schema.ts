@@ -5,7 +5,7 @@ export const titleValidation = {
     message: "Note title must be at least 3 characters",
   },
   maxLength: {
-    value: 40,
+    value: 100,
     message: "Note title must be at most 40 characters",
   },
 };
@@ -17,7 +17,7 @@ export const contentValidation = {
     message: "Content must be at least 3 characters",
   },
   maxLength: {
-    value: 200,
-    message: "Content must be at most 200 characters",
+    value: 1000,
+    message: "Content must be at most 1000 characters",
   },
 };
