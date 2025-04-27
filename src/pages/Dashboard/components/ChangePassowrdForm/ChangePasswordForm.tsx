@@ -5,23 +5,39 @@ import PasswordInput from "../../../../components/PasswordInput";
 import { passwordValidation } from "../../../Login/validation/Login.schema";
 import { confirmPasswordValidation } from "../../../Signup/validation/Signup.schema";
 import { UpdatePasswordFormType } from "./ChangePasswordForm.type";
+import { useMutation } from "@tanstack/react-query";
+import { updatePassowrd } from "../../api/user.api";
+import toast from "react-hot-toast";
 
 const ChangePasswordForm = () => {
   const {
     register,
     watch,
+    reset,
     handleSubmit,
     formState: { errors, isLoading },
   } = useForm({
     defaultValues: {
-      oldPassword: "",
+      currentPassword: "",
       newPassword: "",
-      confirmPassowrd: "",
+      confirmPassword: "",
+    },
+  });
+
+  const updatePassswordMutation = useMutation({
+    mutationFn: updatePassowrd,
+    onSuccess: () => {
+      toast.success("Password updated successfully🎉");
+      reset();
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
   const handlePasswordUpdate = (data: UpdatePasswordFormType) => {
-    console.log("🚀 ~ handlePasswordUpdate ~ data:", data);
+    const { currentPassword, newPassword } = data;
+    updatePassswordMutation.mutate({ currentPassword, newPassword });
   };
 
   const newPassword = watch("newPassword");
@@ -32,11 +48,11 @@ const ChangePasswordForm = () => {
       onSubmit={handleSubmit(handlePasswordUpdate)}
     >
       <PasswordInput
-        label='Old Password'
-        id='oldPassword'
+        label='Current Password'
+        id='currentPassword'
         register={register}
         validation={passwordValidation}
-        error={errors.oldPassword?.message}
+        error={errors.currentPassword?.message}
       />
       <PasswordInput
         label='New Password'
@@ -47,12 +63,17 @@ const ChangePasswordForm = () => {
       />
       <PasswordInput
         label='Confirm New Password'
-        id='confirmPassowrd'
+        id='confirmPassword'
         register={register}
         validation={confirmPasswordValidation(newPassword)}
-        error={errors.confirmPassowrd?.message}
+        error={errors.confirmPassword?.message}
       />
-      <Button type='submit' color='primary' fullWidth loading={isLoading}>
+      <Button
+        type='submit'
+        color='primary'
+        fullWidth
+        loading={updatePassswordMutation.isPending || isLoading}
+      >
         Update Password
       </Button>
     </Stack>

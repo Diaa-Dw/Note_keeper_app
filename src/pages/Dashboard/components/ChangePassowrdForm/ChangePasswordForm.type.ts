@@ -1,5 +1,5 @@
 export interface UpdatePasswordFormType {
-  oldPassword: string;
+  currentPassword: string;
   newPassword: string;
-  confirmPassowrd: string;
+  confirmPassword: string;
 }
