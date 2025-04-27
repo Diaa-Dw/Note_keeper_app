@@ -10,7 +10,7 @@ import {
 import { AvatarBox, LogoLink, StyledHeader } from "./Header.style";
 import ImportContactsRoundedIcon from "@mui/icons-material/ImportContactsRounded";
 import { useAuthDispatch, useAuthState } from "../../contexts/Auth/useAuth";
-import { AccountCircle, DarkMode, Logout } from "@mui/icons-material";
+import { AccountCircle, DarkMode, Logout, Sunny } from "@mui/icons-material";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -64,7 +64,8 @@ const Header = () => {
             Profile
           </MenuItem>
           <MenuItem onClick={handleThemeToggle}>
-            <DarkMode /> Theme
+            {mode === "light" ? <DarkMode /> : <Sunny />}
+            Theme
           </MenuItem>
           <MenuItem color='danger' onClick={onLogout}>
             <Logout />
