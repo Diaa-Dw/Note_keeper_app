@@ -5,6 +5,7 @@ import {
   MenuButton,
   MenuItem,
   Typography,
+  useColorScheme,
 } from "@mui/joy";
 import { AvatarBox, LogoLink, StyledHeader } from "./Header.style";
 import ImportContactsRoundedIcon from "@mui/icons-material/ImportContactsRounded";
@@ -14,6 +15,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const { mode, setMode } = useColorScheme();
   const { user, isAuthenticated } = useAuthState();
   const dispatch = useAuthDispatch();
   const navigate = useNavigate();
@@ -23,6 +25,10 @@ const Header = () => {
     Cookies.remove("jwt");
     navigate("/login");
     dispatch({ type: "LOGOUT" });
+  };
+
+  const handleThemeToggle = () => {
+    setMode(mode === "light" ? "dark" : "light");
   };
 
   const profileImage = user?.photo;
@@ -57,7 +63,7 @@ const Header = () => {
             <AccountCircle />
             Profile
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={handleThemeToggle}>
             <DarkMode /> Theme
           </MenuItem>
           <MenuItem color='danger' onClick={onLogout}>
