@@ -38,7 +38,7 @@ const UserMenu = ({ username }: UserMenuPorps) => {
       <Dropdown>
         <MenuButton variant='plain'>
           <Stack direction={"row"} alignItems={"center"} spacing={1}>
-            <Avatar alt={username} variant='solid' size='lg' />
+            <Avatar alt={username} color='primary' variant='solid' size='lg' />
             <Typography level='h3' component={"h3"}>
               {username}
             </Typography>

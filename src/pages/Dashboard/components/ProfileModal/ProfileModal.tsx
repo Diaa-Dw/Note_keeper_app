@@ -1,22 +1,17 @@
 import { Close } from "@mui/icons-material";
 import {
+  Avatar,
   Button,
   Input,
   Modal,
   ModalDialog,
-  Sheet,
   Stack,
   Typography,
 } from "@mui/joy";
 import { useAuthState } from "../../../../contexts/Auth/useAuth";
-import UpdateUsernameForm from "../UpdateUsernameForm";
 
 const ProfileModal = ({ open, onClose }) => {
   const { user } = useAuthState();
-
-  const handleUsernameUpdate = () => {};
-
-  if (!user) return null;
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -29,23 +24,24 @@ const ProfileModal = ({ open, onClose }) => {
         </Stack>
 
         {/* Profile Information */}
-        <Sheet variant='outlined' sx={{ p: 2, borderRadius: "md", mb: 2 }}>
-          <UpdateUsernameForm name={user.username} />
-        </Sheet>
+        <Stack alignItems='center' spacing={1}>
+          <Avatar
+            alt={user?.username}
+            color='primary'
+            sx={{
+              width: 50,
+              height: 50,
+              fontSize: "1.6rem",
+            }}
+          />
+          <Typography level='h3' component={"h3"}>
+            {user?.username}
+          </Typography>
+        </Stack>
 
         <Typography level='h4' component='h3' mb={1}>
           Change Password
         </Typography>
-
-        {/* Change Password Form */}
-        <Stack spacing={2}>
-          <Input type='password' placeholder='Old Password' />
-          <Input type='password' placeholder='New Password' />
-          <Input type='password' placeholder='Confirm New Password' />
-          <Button color='primary' fullWidth>
-            Update Password
-          </Button>
-        </Stack>
       </ModalDialog>
     </Modal>
   );
