@@ -1,5 +1,7 @@
+import { SxProps } from "@mui/material";
+
 export interface FormInputProps {
-  label: string;
+  label?: string;
   type: string;
   startDecorator: React.ReactNode;
   placeholder: string;
@@ -7,4 +9,5 @@ export interface FormInputProps {
   register: Register;
   validation: Validation;
   error?: string;
+  sx: SxProps;
 }

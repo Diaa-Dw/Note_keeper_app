@@ -11,10 +11,11 @@ const FormInput = ({
   register,
   validation,
   error,
+  sx,
 }: FormInputProps) => {
   return (
-    <FormControl error={error !== undefined}>
-      <FormLabel>{label}</FormLabel>
+    <FormControl error={error !== undefined} sx={sx}>
+      {label && <FormLabel>{label}</FormLabel>}
       <Input
         type={type}
         placeholder={placeholder}
