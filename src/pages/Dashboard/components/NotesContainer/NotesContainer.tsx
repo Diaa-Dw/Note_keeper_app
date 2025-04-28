@@ -1,4 +1,4 @@
-import { Box } from "@mui/joy";
+import { Alert, Box, Stack } from "@mui/joy";
 import { Pagination } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -31,6 +31,16 @@ const NotesContainer = ({ debouncedTerm }: NoteContainerProps) => {
 
   if (isLoading || isFetching) {
     return <CircularProgress />;
+  }
+
+  if (!data) {
+    return (
+      <Stack direction={"row"} justifyContent={"center"}>
+        <Alert color='danger' sx={{ maxWidth: "350px", mt: "16px" }}>
+          Somthing went wrong while fetching data.
+        </Alert>
+      </Stack>
+    );
   }
   const { results: notes, pagination } = data;
 
