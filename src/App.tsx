@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import { Toaster } from "react-hot-toast";
 import AuthGuard from "./components/AuthGuard";
 import CircularProgress from "./components/CirculareProgress";
+import Verify from "./pages/Verify/Verify";
 
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
@@ -36,6 +37,14 @@ function App() {
             element={
               <AuthGuard requireAuth={false}>
                 <Signup />
+              </AuthGuard>
+            }
+          />
+          <Route
+            path='/verify/:token'
+            element={
+              <AuthGuard requireAuth={false}>
+                <Verify />
               </AuthGuard>
             }
           />
