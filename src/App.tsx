@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import AuthGuard from "./components/AuthGuard";
 import CircularProgress from "./components/CirculareProgress";
 import Verify from "./pages/Verify/Verify";
+import ResetPassword from "./pages/ResetPassword";
 
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
@@ -45,6 +46,15 @@ function App() {
             element={
               <AuthGuard requireAuth={false}>
                 <Verify />
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path='/resetPassword/:token'
+            element={
+              <AuthGuard requireAuth={false}>
+                <ResetPassword />
               </AuthGuard>
             }
           />
