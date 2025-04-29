@@ -2,7 +2,7 @@ import axios from "axios";
 import { SignupFormData } from "../types/Signup.type";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 
-const API_URL = "http://127.0.0.1:8080/api/v1/users/register";
+const API_URL = `${import.meta.env.VITE_USER_API}/register`;
 const signup = async ({
   username,
   email,
