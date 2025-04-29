@@ -36,7 +36,7 @@ export const login = async ({ email, password }: LoginFormData) => {
     };
 
     localStorage.setItem("user", JSON.stringify(user));
-    setCookie("jwt", data.token, Number(import.meta.env.VITE_JWT_EXPIRES_IN));
+    // setCookie("jwt", data.token, Number(import.meta.env.VITE_JWT_EXPIRES_IN));
 
     return user;
   } catch (error: unknown) {
