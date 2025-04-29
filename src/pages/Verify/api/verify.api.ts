@@ -1,8 +1,8 @@
 import axios from "axios";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
-import Cookies from "js-cookie";
+import { setCookie } from "../../../utils/cookieHandler";
 
-const API_URL = "http://127.0.0.1:8080/api/v1/users/verifyEmail";
+const API_URL = `${import.meta.env.VITE_USER_API}/verifyEmail`;
 
 export const verifyEmailRequest = async (token: string) => {
   try {
@@ -15,9 +15,9 @@ export const verifyEmailRequest = async (token: string) => {
     }
 
     const { token: jwt, user } = res.data.data;
-    Cookies.set("jwt", jwt, {
-      expires: 7,
-    });
+
+    setCookie("jwt", jwt, import.meta.env.VITE_JWT_EXPIRES_IN);
+
     return user;
   } catch (error) {
     handleAxiosError(

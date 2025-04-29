@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 
-const API_URL = "http://127.0.0.1:8080/api/v1/notes";
+const API_URL = import.meta.env.VITE_Note_API;
 
 export const createNewNote = async ({
   title,

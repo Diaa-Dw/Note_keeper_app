@@ -2,8 +2,9 @@ import Cookies from "js-cookie";
 import { UpdatePasswordFormType } from "../components/ChangePassowrdForm/ChangePasswordForm.type";
 import axios from "axios";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
+import { setCookie } from "../../../utils/cookieHandler";
 
-const API_URL = "http://127.0.0.1:8080/api/v1/users/updatePassword";
+const API_URL = `${import.meta.env.VITE_USER_API}/updatePassword`;
 
 export const updatePassowrd = async ({
   currentPassword,
@@ -33,11 +34,8 @@ export const updatePassowrd = async ({
     }
     const data = res.data.data;
 
-    Cookies.set("jwt", data.token, {
-      expires: 7,
-      sameSite: "Lax",
-      secure: true,
-    });
+    setCookie("jwt", data.token, import.meta.env.VITE_JWT_EXPIRES_IN);
+
 
     return null;
   } catch (error: unknown) {

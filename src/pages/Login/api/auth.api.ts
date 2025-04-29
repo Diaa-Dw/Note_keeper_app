@@ -1,7 +1,7 @@
 import axios from "axios";
 import { LoginFormData } from "../types/Login.type";
-import Cookies from "js-cookie";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
+import { setCookie } from "../../../utils/cookieHandler";
 
 const API_URL = "http://127.0.0.1:8080/api/v1/users";
 
@@ -35,13 +35,8 @@ export const login = async ({ email, password }: LoginFormData) => {
       photo: data.user?.photo || "",
     };
 
-    //store the user data in local storage
     localStorage.setItem("user", JSON.stringify(user));
-    Cookies.set("jwt", data.token, {
-      expires: 7,
-      sameSite: "Lax",
-      secure: true,
-    });
+    setCookie("jwt", data.token, Number(import.meta.env.VITE_JWT_EXPIRES_IN));
 
     return user;
   } catch (error: unknown) {
