@@ -7,7 +7,6 @@ const API_URL = "http://127.0.0.1:8080/api/v1/users/login";
 
 const login = async ({ email, password }: LoginFormData) => {
   // Check if email and password are provided
-  console.log("🚀 ~ login ~ email:", email);
   if (!email || !password) {
     throw new Error("Email and password are required.");
   }

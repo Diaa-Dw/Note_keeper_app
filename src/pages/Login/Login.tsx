@@ -15,8 +15,11 @@ import {
 } from "./styles/Login.style";
 import { LoginFormData } from "./types/Login.type";
 import { emailValidation, passwordValidation } from "./validation/Login.schema";
+import { useState } from "react";
+import ForgotPasswordModal from "./components/ForgotPasswordModal";
 
 const Login = () => {
+  const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAuthDispatch();
   const {
@@ -81,9 +84,13 @@ const Login = () => {
         </Button>
 
         <RightAlignedLinkWrapper>
-          <Link className='link secondary' to='/forgotPassword'>
+          <Button
+            color={"neutral"}
+            variant={"plain"}
+            onClick={() => setOpenForgotPasswordModal(true)}
+          >
             Forgot Password?
-          </Link>
+          </Button>
         </RightAlignedLinkWrapper>
 
         <Typography level='body-sm' textAlign='center' fontSize='1.2rem'>
@@ -93,6 +100,10 @@ const Login = () => {
           </Link>
         </Typography>
       </LoginCard>
+      <ForgotPasswordModal
+        open={openForgotPasswordModal}
+        onClose={() => setOpenForgotPasswordModal(false)}
+      />
     </LoginWrapper>
   );
 };
