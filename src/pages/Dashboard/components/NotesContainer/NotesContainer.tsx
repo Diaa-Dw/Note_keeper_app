@@ -22,7 +22,6 @@ const NotesContainer = ({ debouncedTerm }: NoteContainerProps) => {
         return searchNotes(debouncedTerm, page);
       }
     },
-    keepPreviousData: true,
   });
 
   useEffect(() => {

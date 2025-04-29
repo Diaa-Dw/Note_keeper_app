@@ -1,16 +1,16 @@
-import { Box, Button, Modal, ModalDialog, Stack, Typography } from "@mui/joy";
-import { EditNoteModalProps } from "./EditNoteModal.type";
-import FormInput from "../../../../components/FormInput";
 import { TitleRounded } from "@mui/icons-material";
-import { useForm } from "react-hook-form";
-import FormTextarea from "../FormTextarea";
-import {
-  titleValidation,
-  contentValidation,
-} from "../../validation/Note.schema";
+import { Button, Modal, ModalDialog, Stack, Typography } from "@mui/joy";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateNote } from "../../api/note.api";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import FormInput from "../../../../components/FormInput";
+import { updateNote } from "../../api/note.api";
+import {
+  contentValidation,
+  titleValidation,
+} from "../../validation/Note.schema";
+import FormTextarea from "../FormTextarea";
+import { EditModalFormType, EditNoteModalProps } from "./EditNoteModal.type";
 
 const EditNoteModal = ({
   open,
@@ -23,7 +23,7 @@ const EditNoteModal = ({
     register,
     handleSubmit,
     formState: { isLoading, errors },
-  } = useForm({
+  } = useForm<EditModalFormType>({
     defaultValues: {
       title,
       content,
@@ -33,9 +33,13 @@ const EditNoteModal = ({
   const queryClient = useQueryClient();
 
   const editNoteMutation = useMutation({
-    mutationFn: ({ title, content, noteId }) =>
+    mutationFn: ({
+      title,
+      content,
+      noteId,
+    }: Omit<EditNoteModalProps, "open" | "onClose">) =>
       updateNote(title, content, noteId),
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Note updated successfully🎉");
       queryClient.invalidateQueries({ queryKey: ["notes"] });
       onClose();
@@ -45,7 +49,7 @@ const EditNoteModal = ({
     },
   });
 
-  const onEditNote = (data) => {
+  const onEditNote = (data: EditModalFormType) => {
     const { title, content } = data;
     editNoteMutation.mutate({ title, content, noteId });
   };
@@ -88,7 +92,11 @@ const EditNoteModal = ({
               <Button variant='outlined' color='neutral' onClick={onClose}>
                 Cancel
               </Button>
-              <Button type='submit' color='primary'>
+              <Button
+                type='submit'
+                color='primary'
+                loading={editNoteMutation.isPending || isLoading}
+              >
                 Save Changes
               </Button>
             </Stack>
