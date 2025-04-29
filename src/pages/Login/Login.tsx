@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import FormInput from "../../components/FormInput";
 import PasswordInput from "../../components/PasswordInput";
 import { useAuthDispatch } from "../../contexts/Auth/useAuth";
-import login from "./api/login.auth";
+import { login } from "./api/auth.api";
 import {
   LoginCard,
   LoginWrapper,

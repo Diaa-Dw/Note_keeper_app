@@ -5,7 +5,7 @@ import { handleAxiosError } from "../../../utils/handleAxiosError";
 
 const API_URL = "http://127.0.0.1:8080/api/v1/users/login";
 
-const login = async ({ email, password }: LoginFormData) => {
+export const login = async ({ email, password }: LoginFormData) => {
   // Check if email and password are provided
   if (!email || !password) {
     throw new Error("Email and password are required.");
@@ -51,5 +51,3 @@ const login = async ({ email, password }: LoginFormData) => {
     );
   }
 };
-
-export default login;
