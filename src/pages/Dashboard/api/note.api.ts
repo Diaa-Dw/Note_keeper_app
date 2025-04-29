@@ -45,7 +45,7 @@ export const fetchNotes = async (page = 1) => {
           Authorization: `Bearer ${token}`,
         },
         params: {
-          limit: "15",
+          limit: import.meta.env.VITE_NOTE_LIMIT_PER_PAGE || "15",
           page,
         },
       }
