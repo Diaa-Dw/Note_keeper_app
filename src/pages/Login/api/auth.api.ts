@@ -3,7 +3,7 @@ import { LoginFormData } from "../types/Login.type";
 import Cookies from "js-cookie";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 
-const API_URL = "http://127.0.0.1:8080/api/v1/users/login";
+const API_URL = "http://127.0.0.1:8080/api/v1/users";
 
 export const login = async ({ email, password }: LoginFormData) => {
   // Check if email and password are provided
@@ -13,7 +13,7 @@ export const login = async ({ email, password }: LoginFormData) => {
 
   try {
     const res = await axios.post(
-      API_URL,
+      `${API_URL}/login`,
       {
         email: email,
         password: password,
@@ -48,6 +48,21 @@ export const login = async ({ email, password }: LoginFormData) => {
     handleAxiosError(
       error,
       "An unexpected error occurred while logging in. Please try again later."
+    );
+  }
+};
+
+export const forgotPassword = async (email: string) => {
+  try {
+    await axios.post(`${API_URL}/forgotPassword`, {
+      email,
+    });
+
+    return null;
+  } catch (error) {
+    handleAxiosError(
+      error,
+      "An unexpected error occurred. Please try again later."
     );
   }
 };

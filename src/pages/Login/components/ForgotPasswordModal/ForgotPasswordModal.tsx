@@ -3,19 +3,35 @@ import { useForm } from "react-hook-form";
 import FormInput from "../../../../components/FormInput";
 import { EmailRounded } from "@mui/icons-material";
 import { emailValidation } from "../../validation/Login.schema";
+import { forgotPassword } from "../../api/auth.api";
+import toast from "react-hot-toast";
+import { ForgotPasswordFormType } from "./ForgotPasswordModal.type";
 
 const ForgotPasswordModal = ({ open, onClose }: ModalProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: {
-      email: "",
-    },
-  });
+  } = useForm<ForgotPasswordFormType>();
 
-  const onSubmit = () => {};
+  const onSubmit = async (data: ForgotPasswordFormType) => {
+    const { email } = data;
+    try {
+      await forgotPassword(email);
+      toast.success(
+        "Reset Password link sent successfully, Please check your email."
+      );
+    } catch (error: unknown) {
+      let errorMessage = "";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else {
+        errorMessage =
+          "Somthing went wrong while trying to reset your password. Please try again.";
+      }
+      toast.error(errorMessage);
+    }
+  };
 
   return (
     <Modal open={open} onClose={onClose}>
