@@ -4,7 +4,7 @@ import axios from "axios";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 import { setCookie } from "../../../utils/cookieHandler";
 
-const API_URL = `${import.meta.env.VITE_USER_API}/updatePassword`;
+const API_URL = `${import.meta.env.VITE_API}/api/v1/users/updatePassword`;
 
 export const updatePassowrd = async ({
   currentPassword,
@@ -35,7 +35,6 @@ export const updatePassowrd = async ({
     const data = res.data.data;
 
     setCookie("jwt", data.token, import.meta.env.VITE_JWT_EXPIRES_IN);
-
 
     return null;
   } catch (error: unknown) {

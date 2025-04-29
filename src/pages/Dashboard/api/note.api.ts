@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 
-const API_URL = import.meta.env.VITE_Note_API;
+const API_URL = `${import.meta.env.VITE_API}/api/v1/notes`;
 
 export const createNewNote = async ({
   title,
@@ -45,7 +45,7 @@ export const fetchNotes = async (page = 1) => {
           Authorization: `Bearer ${token}`,
         },
         params: {
-          limit: import.meta.env.VITE_NOTE_LIMIT_PER_PAGE || '15',
+          limit: import.meta.env.VITE_NOTE_LIMIT_PER_PAGE || "15",
           page,
         },
       }

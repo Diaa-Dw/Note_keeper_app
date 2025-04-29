@@ -2,7 +2,7 @@ import axios from "axios";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 import { setCookie } from "../../../utils/cookieHandler";
 
-const API_URL = import.meta.env.VITE_USER_API;
+const API_URL = `import.meta.env.VITE_API/api/v1/users`;
 
 export const resetPassword = async (token: string, password: string) => {
   try {

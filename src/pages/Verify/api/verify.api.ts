@@ -2,7 +2,7 @@ import axios from "axios";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 import { setCookie } from "../../../utils/cookieHandler";
 
-const API_URL = `${import.meta.env.VITE_USER_API}/verifyEmail`;
+const API_URL = `${import.meta.env.VITE_API}/api/v1/users/verifyEmail`;
 
 export const verifyEmailRequest = async (token: string) => {
   try {

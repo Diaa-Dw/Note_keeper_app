@@ -2,7 +2,8 @@ import axios from "axios";
 import { SignupFormData } from "../types/Signup.type";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 
-const API_URL = `${import.meta.env.VITE_USER_API}/register`;
+
+const API_URL = `${import.meta.env.VITE_API}/api/v1/users/register`;
 const signup = async ({
   username,
   email,
