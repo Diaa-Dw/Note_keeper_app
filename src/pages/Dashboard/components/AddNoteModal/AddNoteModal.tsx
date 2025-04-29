@@ -7,14 +7,14 @@ import FormInput from "../../../../components/FormInput";
 import { createNewNote } from "../../api/note.api";
 import FormTextarea from "../FormTextarea";
 import { StyledModalDialog } from "./AddNote.style";
-import { AddNoteForm, AddNoteModalProps } from "./AddNoteModal.type";
+import { AddNoteForm } from "./AddNoteModal.type";
 import {
   contentValidation,
   titleValidation,
 } from "../../validation/Note.schema";
 import { useEffect } from "react";
 
-const AddNoteModal = ({ open, onClose }: AddNoteModalProps) => {
+const AddNoteModal = ({ open, onClose }: ModalProps) => {
   const {
     register,
     handleSubmit,

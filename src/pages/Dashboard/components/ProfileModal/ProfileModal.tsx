@@ -9,9 +9,8 @@ import {
 } from "@mui/joy";
 import { useAuthState } from "../../../../contexts/Auth/useAuth";
 import ChangePasswordForm from "../ChangePassowrdForm";
-import { ProfileModalProps } from "./ProfileModal.type";
 
-const ProfileModal = ({ open, onClose }: ProfileModalProps) => {
+const ProfileModal = ({ open, onClose }: ModalProps) => {
   const { user } = useAuthState();
 
   return (

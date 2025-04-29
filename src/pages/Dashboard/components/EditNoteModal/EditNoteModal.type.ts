@@ -1,7 +1,5 @@
-export interface EditNoteModalProps {
-  open: boolean;
+export interface EditNoteModalProps extends ModalProps {
   title: string;
   content: string;
   noteId: string;
-  onClose: () => void;
 }

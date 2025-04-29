@@ -18,8 +18,13 @@ declare global {
   interface Note {
     _id: string;
     title: string;
-    content:string;
+    content: string;
     createdAt: Date;
+  }
+
+  interface ModalProps {
+    open: boolean;
+    onClose: () => void;
   }
 
   type Register = UseFormRegister;

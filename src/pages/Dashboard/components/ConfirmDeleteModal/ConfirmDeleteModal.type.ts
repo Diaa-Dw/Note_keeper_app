@@ -1,5 +1,3 @@
-export interface ConfirmDeleteModalProps {
-  open: boolean;
-  onClose: () => void;
+export interface ConfirmDeleteModalProps extends ModalProps {
   onConfirm: () => void;
 }

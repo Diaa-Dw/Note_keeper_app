@@ -1,6 +1,4 @@
-export interface ShowNoteModalProps {
-  open: boolean;
+export interface ShowNoteModalProps extends ModalProps {
   title: string;
   content: string;
-  onClose: () => void;
 }
