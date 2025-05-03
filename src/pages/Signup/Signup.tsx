@@ -21,7 +21,7 @@ const Signup = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<SignupFormData>();
 
   const password = watch("password");
@@ -32,13 +32,7 @@ const Signup = () => {
       toast.success(data.message);
     },
     onError: (error) => {
-      if (error.message) {
-        toast.error(error.message);
-      } else {
-        toast.error(
-          "An unexpected error occurred while signup please try again."
-        );
-      }
+      toast.error(error.message);
     },
   });
 
@@ -92,11 +86,7 @@ const Signup = () => {
           error={errors.confirmPassword?.message}
         />
 
-        <Button
-          type='submit'
-          size='lg'
-          loading={signupMutation.isPending || isSubmitting}
-        >
+        <Button type='submit' size='lg' loading={signupMutation.isPending}>
           Sign up
         </Button>
 

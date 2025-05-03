@@ -19,7 +19,7 @@ const AddNoteModal = ({ open, onClose }: ModalProps) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<AddNoteForm>();
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const AddNoteModal = ({ open, onClose }: ModalProps) => {
               variant='solid'
               color='primary'
               type='submit'
-              loading={noteMutation.isPending || isSubmitting}
+              loading={noteMutation.isPending}
             >
               Add Note
             </Button>

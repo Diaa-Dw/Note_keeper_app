@@ -6,6 +6,7 @@ import { emailValidation } from "../../validation/Login.schema";
 import { forgotPassword } from "../../api/auth.api";
 import toast from "react-hot-toast";
 import { ForgotPasswordFormType } from "./ForgotPasswordModal.type";
+import { useMutation } from "@tanstack/react-query";
 
 const ForgotPasswordModal = ({ open, onClose }: ModalProps) => {
   const {
@@ -14,23 +15,21 @@ const ForgotPasswordModal = ({ open, onClose }: ModalProps) => {
     formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordFormType>();
 
+  const forgotPasswordMutation = useMutation({
+    mutationFn: forgotPassword,
+    onSuccess: () => {
+      toast.success(
+        "Reset Password link sent successfully. Please check your email."
+      );
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const onSubmit = async (data: ForgotPasswordFormType) => {
     const { email } = data;
-    try {
-      await forgotPassword(email);
-      toast.success(
-        "Reset Password link sent successfully, Please check your email."
-      );
-    } catch (error: unknown) {
-      let errorMessage = "";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      } else {
-        errorMessage =
-          "Somthing went wrong while trying to reset your password. Please try again.";
-      }
-      toast.error(errorMessage);
-    }
+    forgotPasswordMutation.mutate(email);
   };
 
   return (

@@ -8,6 +8,7 @@ import EditNoteModal from "../EditNoteModal";
 import { NoteHeader } from "./NoteCard.style";
 import { NoteCardProps } from "./NoteCard.type";
 import ShowNoteModal from "../ShowNoteModal";
+import toast from "react-hot-toast";
 
 const NoteCard = ({ note }: NoteCardProps) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -23,9 +24,11 @@ const NoteCard = ({ note }: NoteCardProps) => {
   const queryClient = useQueryClient();
   const deleteMutation = useMutation({
     mutationFn: () => deleteNote(_id),
-    onSuccess: (data) => {
-      console.log("🚀 ~ NoteCard ~ data:", data);
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 

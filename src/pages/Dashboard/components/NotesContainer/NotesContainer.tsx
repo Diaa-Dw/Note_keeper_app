@@ -13,7 +13,7 @@ import { NoteContainerProps } from "./NoteContainer.type";
 
 const NotesContainer = ({ debouncedTerm }: NoteContainerProps) => {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, refetch } = useQuery({
+  const { data, isFetching, refetch } = useQuery({
     queryKey: ["notes", page, debouncedTerm],
     queryFn: () => {
       if (debouncedTerm.trim() === "") {
@@ -28,7 +28,7 @@ const NotesContainer = ({ debouncedTerm }: NoteContainerProps) => {
     refetch();
   }, [page, refetch]);
 
-  if (isLoading || isFetching) {
+  if (isFetching) {
     return <CircularProgress />;
   }
 

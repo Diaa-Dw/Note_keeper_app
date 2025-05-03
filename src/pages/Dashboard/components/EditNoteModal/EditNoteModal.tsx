@@ -22,7 +22,7 @@ const EditNoteModal = ({
   const {
     register,
     handleSubmit,
-    formState: { isLoading, errors },
+    formState: { errors },
   } = useForm<EditModalFormType>({
     defaultValues: {
       title,
@@ -45,7 +45,7 @@ const EditNoteModal = ({
       onClose();
     },
     onError: (error) => {
-      console.log("🚀 ~ error:", error);
+      toast.error(error.message);
     },
   });
 
@@ -95,7 +95,7 @@ const EditNoteModal = ({
               <Button
                 type='submit'
                 color='primary'
-                loading={editNoteMutation.isPending || isLoading}
+                loading={editNoteMutation.isPending}
               >
                 Save Changes
               </Button>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { LoginFormData } from "../types/Login.type";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
+import { setCookie } from "../../../utils/cookieHandler";
 
 const API_URL = `${import.meta.env.VITE_API}/api/v1/users`;
 
@@ -35,7 +36,7 @@ export const login = async ({ email, password }: LoginFormData) => {
     };
 
     localStorage.setItem("user", JSON.stringify(user));
-    // setCookie("jwt", data.token, Number(import.meta.env.VITE_JWT_EXPIRES_IN));
+    setCookie("jwt", data.token, Number(import.meta.env.VITE_JWT_EXPIRES_IN));
 
     return user;
   } catch (error: unknown) {

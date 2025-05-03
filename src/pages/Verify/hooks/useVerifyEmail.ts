@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { verifyEmailRequest } from "../api/verify.api";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthDispatch } from "../../../contexts/Auth/useAuth";
+import toast from "react-hot-toast";
 
 export function useVerifyEmail() {
   const dispatch = useAuthDispatch();
@@ -15,8 +16,8 @@ export function useVerifyEmail() {
       localStorage.setItem("user", JSON.stringify(user));
       navigate("/");
     },
-    onError: (error: Error) => {
-      console.error(error.message);
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 

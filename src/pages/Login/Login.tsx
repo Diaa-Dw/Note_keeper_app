@@ -1,6 +1,7 @@
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import { Button, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ import FormInput from "../../components/FormInput";
 import PasswordInput from "../../components/PasswordInput";
 import { useAuthDispatch } from "../../contexts/Auth/useAuth";
 import { login } from "./api/auth.api";
+import ForgotPasswordModal from "./components/ForgotPasswordModal";
 import {
   LoginCard,
   LoginWrapper,
@@ -15,8 +17,6 @@ import {
 } from "./styles/Login.style";
 import { LoginFormData } from "./types/Login.type";
 import { emailValidation, passwordValidation } from "./validation/Login.schema";
-import { useState } from "react";
-import ForgotPasswordModal from "./components/ForgotPasswordModal";
 
 const Login = () => {
   const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false);
@@ -25,7 +25,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<LoginFormData>();
 
   const loginMutation = useMutation({
@@ -39,9 +39,7 @@ const Login = () => {
     },
 
     onError: (error) => {
-      toast.error(
-        error?.message || "Somting went wrong while login please try again."
-      );
+      toast.error(error?.message);
     },
   });
 
@@ -75,11 +73,7 @@ const Login = () => {
           error={errors.password?.message}
         />
 
-        <Button
-          type='submit'
-          size='lg'
-          loading={loginMutation.isPending || isSubmitting}
-        >
+        <Button type='submit' size='lg' loading={loginMutation.isPending}>
           Login
         </Button>
 

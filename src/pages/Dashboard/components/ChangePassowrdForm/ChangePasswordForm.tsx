@@ -6,7 +6,7 @@ import { passwordValidation } from "../../../Login/validation/Login.schema";
 import { confirmPasswordValidation } from "../../../Signup/validation/Signup.schema";
 import { UpdatePasswordFormType } from "./ChangePasswordForm.type";
 import { useMutation } from "@tanstack/react-query";
-import { updatePassowrd } from "../../api/user.api";
+import { updatePassword } from "../../api/user.api";
 import toast from "react-hot-toast";
 
 const ChangePasswordForm = () => {
@@ -15,7 +15,7 @@ const ChangePasswordForm = () => {
     watch,
     reset,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm({
     defaultValues: {
       currentPassword: "",
@@ -25,7 +25,7 @@ const ChangePasswordForm = () => {
   });
 
   const updatePassswordMutation = useMutation({
-    mutationFn: updatePassowrd,
+    mutationFn: updatePassword,
     onSuccess: () => {
       toast.success("Password updated successfully🎉");
       reset();
@@ -72,7 +72,7 @@ const ChangePasswordForm = () => {
         type='submit'
         color='primary'
         fullWidth
-        loading={updatePassswordMutation.isPending || isLoading}
+        loading={updatePassswordMutation.isPending}
       >
         Update Password
       </Button>
