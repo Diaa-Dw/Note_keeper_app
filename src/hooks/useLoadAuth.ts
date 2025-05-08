@@ -4,23 +4,24 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { getCurrentUser } from "../API/user.api";
-import { useAuthDispatch } from "../contexts/Auth/useAuth";
+import { useAuthDispatch, useAuthState } from "../contexts/Auth/useAuth";
 
 const useLoadAuth = () => {
+  const { user } = useAuthState();
   const dispatch = useAuthDispatch();
   const navigate = useNavigate();
 
   const hasJWT = !!Cookies.get("jwt");
 
-  const { data: user, error } = useQuery({
+  const { data, error } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrentUser,
-    enabled: hasJWT,
+    enabled: hasJWT && !!user,
   });
 
   useEffect(() => {
-    if (user) {
-      dispatch({ type: "LOGIN", payload: user });
+    if (data) {
+      dispatch({ type: "LOGIN", payload: data });
     }
 
     if (error) {
@@ -32,7 +33,7 @@ const useLoadAuth = () => {
       toast.error(message);
       navigate("/login");
     }
-  }, [user, error, dispatch, navigate]);
+  }, [data, error, dispatch, navigate]);
 };
 
 export default useLoadAuth;

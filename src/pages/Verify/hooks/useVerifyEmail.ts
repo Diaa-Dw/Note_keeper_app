@@ -14,10 +14,12 @@ export function useVerifyEmail() {
     onSuccess: (user) => {
       dispatch({ type: "LOGIN", payload: user });
       navigate("/");
+      toast.success("Email verified successfully🎉");
     },
     onError: (error) => {
       toast.error(error.message);
     },
+    retry: 2,
   });
 
   return { token, mutation };
