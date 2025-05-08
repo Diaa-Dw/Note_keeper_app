@@ -3,9 +3,9 @@ import { Box, Button, Card, CardContent, Typography } from "@mui/joy";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { deleteNote } from "../../API/note.api";
-import ConfirmDeleteModal from "../ConfirmDeleteModal";
 import { EditNoteModal } from "..";
+import { deleteNoteRequest } from "../../API/note.api";
+import ConfirmDeleteModal from "../ConfirmDeleteModal";
 import ShowNoteModal from "../ShowNoteModal";
 import { NoteHeader } from "./NoteCard.style";
 import { NoteCardProps } from "./NoteCard.type";
@@ -24,7 +24,7 @@ const NoteCard = ({ note }: NoteCardProps) => {
 
   const queryClient = useQueryClient();
   const deleteMutation = useMutation({
-    mutationFn: () => deleteNote(_id),
+    mutationFn: () => deleteNoteRequest(_id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
     },

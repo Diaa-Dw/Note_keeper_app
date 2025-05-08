@@ -5,6 +5,7 @@ export const LoginWrapper = styled(Box)(() => ({
   justifyContent: "center",
   alignItems: "center",
   flexGrow: 1,
+  padding: "0 2rem",
 }));
 
 export const LoginCard = styled(Box)(({ theme }) => ({

@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { NoteCard } from "..";
 import { CircularProgress } from "../../../../components";
-import { fetchNotes, searchNotes } from "../../API/note.api";
+import { fetchNotesRequest, searchNotesRequest } from "../../API/note.api";
 import {
   PaginationContainer,
   StyledNotesContainer,
@@ -17,9 +17,9 @@ const NotesContainer = ({ debouncedTerm }: NoteContainerProps) => {
     queryKey: ["notes", page, debouncedTerm],
     queryFn: () => {
       if (debouncedTerm.trim() === "") {
-        return fetchNotes(page);
+        return fetchNotesRequest(page);
       } else {
-        return searchNotes(debouncedTerm, page);
+        return searchNotesRequest(debouncedTerm, page);
       }
     },
   });
@@ -35,20 +35,25 @@ const NotesContainer = ({ debouncedTerm }: NoteContainerProps) => {
   if (isError) {
     return (
       <Stack direction={"row"} justifyContent={"center"}>
-        <Alert color='danger' sx={{ maxWidth: "350px", mt: "16px" }}>
+        <Alert color='danger' size='lg' sx={{ maxWidth: "350px", mt: "16px" }}>
           {error.message}
         </Alert>
       </Stack>
     );
   }
-  const { results: notes, pagination } = data;
+
+  const { results: notes, pagination } = data as NotesResponse;
 
   return (
     <Box>
       <StyledNotesContainer>
-        {notes.map((note: Note) => (
-          <NoteCard key={note._id} note={note} />
-        ))}
+        {notes.length === 0 ? (
+          <Alert color={"neutral"} size={"lg"}>
+            No notes available
+          </Alert>
+        ) : (
+          notes.map((note: Note) => <NoteCard key={note._id} note={note} />)
+        )}
       </StyledNotesContainer>
 
       {pagination.totalPages > 1 && (

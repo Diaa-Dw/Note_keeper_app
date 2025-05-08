@@ -12,7 +12,7 @@ export function useVerifyEmail() {
   const mutation = useMutation({
     mutationFn: () => verifyEmailRequest(token!),
     onSuccess: (user) => {
-      dispatch({ type: "LOGIN", payload: user });
+      dispatch({ type: "LOGIN", payload: user! });
       navigate("/");
       toast.success("Email verified successfully🎉");
     },

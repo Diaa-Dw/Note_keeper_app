@@ -21,6 +21,19 @@ declare global {
     content: string;
     createdAt: Date;
   }
+  interface Pagination {
+    next: number | null;
+    prev: number | null;
+    page: number;
+    limit: number;
+    totalPages: number;
+    totalCount: number;
+  }
+
+  interface NotesResponse {
+    results: Note[];
+    pagination: Pagination;
+  }
 
   interface ModalProps {
     open: boolean;

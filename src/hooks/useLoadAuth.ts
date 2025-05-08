@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { getCurrentUser } from "../API/user.api";
+import { getCurrentUserRequest } from "../API/user.api";
 import { useAuthDispatch, useAuthState } from "../contexts/Auth/useAuth";
 
 const useLoadAuth = () => {
@@ -15,8 +15,8 @@ const useLoadAuth = () => {
 
   const { data, error } = useQuery({
     queryKey: ["user"],
-    queryFn: getCurrentUser,
-    enabled: hasJWT && !!user,
+    queryFn: getCurrentUserRequest,
+    enabled: hasJWT && !user,
   });
 
   useEffect(() => {

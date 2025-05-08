@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FormTextarea } from "..";
 import { FormInput } from "../../../../components";
-import { updateNote } from "../../API/note.api";
+import { updateNoteRequest } from "../../API/note.api";
 import {
   contentValidation,
   titleValidation,
@@ -38,7 +38,7 @@ const EditNoteModal = ({
       content,
       noteId,
     }: Omit<EditNoteModalProps, "open" | "onClose">) =>
-      updateNote(title, content, noteId),
+      updateNoteRequest(title, content, noteId),
     onSuccess: () => {
       toast.success("Note updated successfully🎉");
       queryClient.invalidateQueries({ queryKey: ["notes"] });

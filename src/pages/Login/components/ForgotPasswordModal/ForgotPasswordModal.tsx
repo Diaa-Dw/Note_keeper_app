@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FormInput } from "../../../../components";
-import { forgotPassword } from "../../API/auth.api";
+import { forgotPasswordRequest } from "../../API/auth.api";
 import { ForgotPasswordFormType } from "./ForgotPasswordModal.type";
 import { emailValidation } from "../../../../validation/auth.validation";
 
@@ -16,7 +16,7 @@ const ForgotPasswordModal = ({ open, onClose }: ModalProps) => {
   } = useForm<ForgotPasswordFormType>();
 
   const forgotPasswordMutation = useMutation({
-    mutationFn: forgotPassword,
+    mutationFn: forgotPasswordRequest,
     onSuccess: () => {
       toast.success(
         "Reset Password link sent successfully. Please check your email."

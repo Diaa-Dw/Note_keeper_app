@@ -11,7 +11,7 @@ import {
   emailValidation,
   passwordValidation,
 } from "../../validation/auth.validation";
-import { login } from "./API/auth.api";
+import { loginRequest } from "./API/auth.api";
 import { ForgotPasswordModal } from "./components";
 import {
   LoginCard,
@@ -31,8 +31,8 @@ const Login = () => {
   } = useForm<LoginFormData>();
 
   const loginMutation = useMutation({
-    mutationFn: login,
-    onSuccess: (user: User | undefined) => {
+    mutationFn: loginRequest,
+    onSuccess: (user) => {
       if (user) {
         toast.success(`Welcome back, ${user.username}!`);
         dispatch({ type: "LOGIN", payload: user });

@@ -8,7 +8,7 @@ import {
   confirmPasswordValidation,
   passwordValidation,
 } from "../../validation/auth.validation";
-import { resetPassword } from "./API/resetPassword.api";
+import { resetPasswordRequest } from "./API/resetPassword.api";
 import {
   ResetPasswordCard,
   ResetPasswordWrapper,
@@ -30,7 +30,7 @@ const ResetPassword = () => {
 
   const mutation = useMutation({
     mutationFn: ({ token, password }: { token: string; password: string }) =>
-      resetPassword(token, password),
+      resetPasswordRequest(token, password),
     onSuccess: () => {
       reset();
       toast.success("Successfully reset password🎉");

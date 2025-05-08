@@ -1,20 +1,17 @@
 import axios from "axios";
-import { handleAxiosError } from "../../../utils/handleAxiosError";
+import { catchAsync } from "../../../utils/catchAsync";
 
 const API_URL = `${import.meta.env.VITE_API}/api/v1/users/verifyEmail`;
 
-export const verifyEmailRequest = async (token: string) => {
-  try {
-    const res = await axios.get(`${API_URL}/${token}`, {
-      withCredentials: true,
-    });
+const sendVerifyEmailRequest = async (token: string): Promise<User> => {
+  const res = await axios.get(`${API_URL}/${token}`, {
+    withCredentials: true,
+  });
 
-    console.log("🚀 ~ verifyEmailRequest ~ res:", res.data);
-    return res.data.data.user;
-  } catch (error) {
-    handleAxiosError(
-      error,
-      "Somtihng went wrong while verifling email please try again"
-    );
-  }
+  return res.data.data.user;
 };
+
+export const verifyEmailRequest = catchAsync(
+  sendVerifyEmailRequest,
+  "Something went wrong while verifying email. Please try again."
+);

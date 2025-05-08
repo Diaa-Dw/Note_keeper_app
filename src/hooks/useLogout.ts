@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthDispatch } from "../contexts/Auth/useAuth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { logoutUser } from "../API/user.api";
+import { logoutRequest } from "../API/user.api";
 import toast from "react-hot-toast";
 
 export const useLogout = () => {
@@ -10,7 +10,7 @@ export const useLogout = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: logoutUser,
+    mutationFn: logoutRequest,
     onSuccess: () => {
       dispatch({ type: "LOGOUT" });
       queryClient.removeQueries({ queryKey: ["user"] });

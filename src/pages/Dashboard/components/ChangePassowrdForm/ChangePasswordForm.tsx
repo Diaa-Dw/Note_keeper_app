@@ -8,7 +8,7 @@ import {
   confirmPasswordValidation,
   passwordValidation,
 } from "../../../../validation/auth.validation";
-import { updatePassword } from "../../API/user.api";
+import { updatePasswordRequest } from "../../API/user.api";
 import { UpdatePasswordFormType } from "./ChangePasswordForm.type";
 
 const ChangePasswordForm = () => {
@@ -27,7 +27,7 @@ const ChangePasswordForm = () => {
   });
 
   const updatePassswordMutation = useMutation({
-    mutationFn: updatePassword,
+    mutationFn: updatePasswordRequest,
     onSuccess: () => {
       toast.success("Password updated successfully🎉");
       reset();

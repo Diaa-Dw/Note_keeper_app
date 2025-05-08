@@ -11,7 +11,7 @@ import {
   passwordValidation,
   usernameValidation,
 } from "../../validation/auth.validation";
-import signup from "./API/auth.api";
+import { signupRequest } from "./API/auth.api";
 import { SignupnCard, SignupnWrapper } from "./styles/Signup.style";
 import { SignupFormData } from "./types/Signup.type";
 
@@ -28,11 +28,13 @@ const Signup = () => {
   const password = watch("password");
 
   const signupMutation = useMutation({
-    mutationFn: signup,
+    mutationFn: signupRequest,
     onSuccess: (data) => {
       navigate("/");
       reset();
-      toast.success(data.message);
+      const message =
+        data?.message || "Verify token send to email successfully!";
+      toast.success(message);
     },
     onError: (error) => {
       toast.error(error.message);

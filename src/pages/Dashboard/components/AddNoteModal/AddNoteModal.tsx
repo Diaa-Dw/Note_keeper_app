@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FormTextarea } from "..";
 import { FormInput } from "../../../../components";
-import { createNewNote } from "../../API/note.api";
+import { createNewNoteRequest } from "../../API/note.api";
 import {
   contentValidation,
   titleValidation,
@@ -28,9 +28,9 @@ const AddNoteModal = ({ open, onClose }: ModalProps) => {
 
   const queryClient = useQueryClient();
   const noteMutation = useMutation({
-    mutationFn: createNewNote,
-    onSuccess: (data) => {
-      toast.success(`${data.title} has been created!`);
+    mutationFn: createNewNoteRequest,
+    onSuccess: () => {
+      toast.success(`New note has been created!`);
       queryClient.invalidateQueries({ queryKey: ["notes"] });
       onClose();
       reset();

@@ -1,23 +1,21 @@
 import axios from "axios";
-import { handleAxiosError } from "../../../utils/handleAxiosError";
+import { catchAsync } from "../../../utils/catchAsync";
 
 const API_URL = `${import.meta.env.VITE_API}/api/v1/users`;
 
-export const resetPassword = async (token: string, password: string) => {
-  try {
-    const res = await axios.patch(`${API_URL}/resetPassword/${token}`, {
+const sendResetPasswordRequest = async (token: string, password: string) => {
+  await axios.patch(
+    `${API_URL}/resetPassword/${token}`,
+    {
       password,
-    });
-
-    if (res.data.status !== "success") {
-      throw new Error(
-        "An unexpected error occurred while logging in. Please try again later."
-      );
+    },
+    {
+      withCredentials: true,
     }
-  } catch (error) {
-    handleAxiosError(
-      error,
-      "An unexpected error occurred. Please try again later."
-    );
-  }
+  );
 };
+
+export const resetPasswordRequest = catchAsync(
+  sendResetPasswordRequest,
+  "An unexpected error occurred while resetting your password. Please try again later."
+);

@@ -5,6 +5,7 @@ export const SignupnWrapper = styled(Box)(() => ({
   justifyContent: "center",
   alignItems: "center",
   flexGrow: 1,
+  padding: "0 2rem",
 }));
 
 export const SignupnCard = styled(Box)(({ theme }) => ({
