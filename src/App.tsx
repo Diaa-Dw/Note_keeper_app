@@ -1,17 +1,19 @@
 import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header/Header";
 import { Toaster } from "react-hot-toast";
-import AuthGuard from "./components/AuthGuard";
-import CircularProgress from "./components/CirculareProgress";
-import Verify from "./pages/Verify/Verify";
-import ResetPassword from "./pages/ResetPassword";
+import { Route, Routes } from "react-router-dom";
+import { AuthGuard, CircularProgress, Header } from "./components";
+import useLoadAuth from "./hooks/useLoadAuth";
 
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+const Verify = lazy(() => import("./pages/Verify"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
+  useLoadAuth();
+
   return (
     <>
       <Header />
@@ -58,6 +60,8 @@ function App() {
               </AuthGuard>
             }
           />
+
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Suspense>
       <Toaster position='top-center' />

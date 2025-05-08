@@ -2,9 +2,9 @@ import { Alert, Box, Stack } from "@mui/joy";
 import { Pagination } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import CircularProgress from "../../../../components/CirculareProgress";
-import { fetchNotes, searchNotes } from "../../api/note.api";
-import NoteCard from "../NoteCard";
+import { NoteCard } from "..";
+import { CircularProgress } from "../../../../components";
+import { fetchNotes, searchNotes } from "../../API/note.api";
 import {
   PaginationContainer,
   StyledNotesContainer,
@@ -13,7 +13,7 @@ import { NoteContainerProps } from "./NoteContainer.type";
 
 const NotesContainer = ({ debouncedTerm }: NoteContainerProps) => {
   const [page, setPage] = useState(1);
-  const { data, isFetching, refetch } = useQuery({
+  const { data, isFetching, isError, error, refetch } = useQuery({
     queryKey: ["notes", page, debouncedTerm],
     queryFn: () => {
       if (debouncedTerm.trim() === "") {
@@ -32,11 +32,11 @@ const NotesContainer = ({ debouncedTerm }: NoteContainerProps) => {
     return <CircularProgress />;
   }
 
-  if (!data) {
+  if (isError) {
     return (
       <Stack direction={"row"} justifyContent={"center"}>
         <Alert color='danger' sx={{ maxWidth: "350px", mt: "16px" }}>
-          Somthing went wrong while fetching data.
+          {error.message}
         </Alert>
       </Stack>
     );

@@ -3,13 +3,13 @@ import { Button, Modal, ModalDialog, Stack, Typography } from "@mui/joy";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import FormInput from "../../../../components/FormInput";
-import { updateNote } from "../../api/note.api";
+import { FormTextarea } from "..";
+import { FormInput } from "../../../../components";
+import { updateNote } from "../../API/note.api";
 import {
   contentValidation,
   titleValidation,
 } from "../../validation/Note.schema";
-import FormTextarea from "../FormTextarea";
 import { EditModalFormType, EditNoteModalProps } from "./EditNoteModal.type";
 
 const EditNoteModal = ({

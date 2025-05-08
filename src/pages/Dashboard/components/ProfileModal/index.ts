@@ -1,3 +1,1 @@
-import ProfileModal from "./ProfileModal";
-
-export default ProfileModal;
+export { default } from "./ProfileModal";

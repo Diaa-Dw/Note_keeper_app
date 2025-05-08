@@ -1,3 +1,1 @@
-import NoteCard from "./NoteCard";
-
-export default NoteCard;
+export { default } from "./NoteCard";

@@ -1,13 +1,15 @@
 import { Button } from "@mui/joy";
 import { Stack } from "@mui/material";
-import { useForm } from "react-hook-form";
-import PasswordInput from "../../../../components/PasswordInput";
-import { passwordValidation } from "../../../Login/validation/Login.schema";
-import { confirmPasswordValidation } from "../../../Signup/validation/Signup.schema";
-import { UpdatePasswordFormType } from "./ChangePasswordForm.type";
 import { useMutation } from "@tanstack/react-query";
-import { updatePassword } from "../../api/user.api";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { PasswordInput } from "../../../../components";
+import {
+  confirmPasswordValidation,
+  passwordValidation,
+} from "../../../../validation/auth.validation";
+import { updatePassword } from "../../API/user.api";
+import { UpdatePasswordFormType } from "./ChangePasswordForm.type";
 
 const ChangePasswordForm = () => {
   const {

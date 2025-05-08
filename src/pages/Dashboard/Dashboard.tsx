@@ -1,10 +1,8 @@
 import { Add } from "@mui/icons-material";
 import { Button } from "@mui/joy";
 import { useState } from "react";
-import AddNoteModal from "./components/AddNoteModal";
-import SearchInput from "./components/SearchInput";
+import { AddNoteModal, NotesContainer, SearchInput } from "./components";
 import { ActionsBox, DashboardContainer } from "./styles/Dashboard.style";
-import NotesContainer from "./components/NotesContainer";
 
 const Dashboard = () => {
   const [openModal, setOpenModal] = useState(false);

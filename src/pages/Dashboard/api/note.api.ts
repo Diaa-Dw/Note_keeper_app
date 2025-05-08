@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 
 const API_URL = `${import.meta.env.VITE_API}/api/v1/notes`;
@@ -9,8 +8,6 @@ export const createNewNote = async ({
   content,
 }: Omit<Note, "_id" | "createdAt">) => {
   try {
-    const token = Cookies.get("jwt");
-
     const res = await axios.post(
       API_URL,
       {
@@ -18,9 +15,7 @@ export const createNewNote = async ({
         content,
       },
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       }
     );
 
@@ -35,21 +30,13 @@ export const createNewNote = async ({
 
 export const fetchNotes = async (page = 1) => {
   try {
-    const token = Cookies.get("jwt");
-
-    const res = await axios.get(
-      API_URL,
-
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          limit: import.meta.env.VITE_NOTE_LIMIT_PER_PAGE || "15",
-          page,
-        },
-      }
-    );
+    const res = await axios.get(API_URL, {
+      params: {
+        limit: import.meta.env.VITE_NOTE_LIMIT_PER_PAGE || "15",
+        page,
+      },
+      withCredentials: true,
+    });
 
     return res.data.data;
   } catch (error: unknown) {
@@ -62,12 +49,8 @@ export const fetchNotes = async (page = 1) => {
 
 export const deleteNote = async (noteId: string) => {
   try {
-    const token = Cookies.get("jwt");
-
     const res = await axios.delete(`${API_URL}/${noteId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      withCredentials: true,
     });
 
     return res.data.data;
@@ -85,8 +68,6 @@ export const updateNote = async (
   noteId: string
 ) => {
   try {
-    const token = Cookies.get("jwt");
-
     const res = await axios.patch(
       `${API_URL}/${noteId}`,
       {
@@ -94,9 +75,7 @@ export const updateNote = async (
         content,
       },
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       }
     );
 
@@ -115,17 +94,14 @@ export const searchNotes = async (
   limit = 15
 ) => {
   try {
-    const token = Cookies.get("jwt");
-
     const res = await axios.get(`${API_URL}/search`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       params: {
         query: searchTerm,
         page,
         limit,
       },
+
+      withCredentials: true,
     });
 
     return res.data.data;

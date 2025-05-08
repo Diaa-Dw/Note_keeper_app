@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AUthGuard } from "./AuthGuard.type";
-import Cookies from "js-cookie";
+import { useAuthState } from "../../contexts/Auth/useAuth";
 import CircularProgress from "../CirculareProgress";
+import { AUthGuard } from "./AuthGuard.type";
 
 const AuthGuard = ({ requireAuth, children }: AUthGuard) => {
   const [checking, setChecking] = useState(true);
+  const { isAuthenticated } = useAuthState();
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const token = Cookies.get("jwt");
-    if (requireAuth && !token) {
+    if (requireAuth && !isAuthenticated) {
       navigate("/login", { replace: true });
-    } else if (!requireAuth && token) {
+    } else if (!requireAuth && isAuthenticated) {
       navigate("/", { replace: true });
     } else {
       setChecking(false);
     }
-  }, [requireAuth, navigate, location.pathname]);
+  }, [requireAuth, isAuthenticated, navigate, location.pathname]);
 
   if (checking) return <CircularProgress />;
 

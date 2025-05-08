@@ -1,15 +1,3 @@
-export const usernameValidation = {
-  required: "Name is required",
-  minLength: {
-    value: 3,
-    message: "Name must be at least 3 characters",
-  },
-  maxLength: {
-    value: 40,
-    message: "Name must be at most 20 characters",
-  },
-};
-
 export const emailValidation = {
   required: "Email is required",
   pattern: {
@@ -23,6 +11,18 @@ export const passwordValidation = {
   minLength: {
     value: 8,
     message: "Password must be at least 6 characters",
+  },
+};
+
+export const usernameValidation = {
+  required: "Name is required",
+  minLength: {
+    value: 3,
+    message: "Name must be at least 3 characters",
+  },
+  maxLength: {
+    value: 40,
+    message: "Name must be at most 20 characters",
   },
 };
 

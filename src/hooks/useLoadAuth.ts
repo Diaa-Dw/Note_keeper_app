@@ -1,36 +1,37 @@
-import { Dispatch, useEffect } from "react";
-import Cookies from "js-cookie";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { AuthAction } from "../contexts/Auth/auth.type";
+import { getCurrentUser } from "../API/user.api";
+import { useAuthDispatch } from "../contexts/Auth/useAuth";
 
-const useLoadAuth = (dispatch: Dispatch<AuthAction>) => {
+const useLoadAuth = () => {
+  const dispatch = useAuthDispatch();
   const navigate = useNavigate();
+  const [isUserLoaded, setIsUserLoaded] = useState(false);
+
+  const { data: user, error } = useQuery({
+    queryKey: ["user"],
+    queryFn: getCurrentUser,
+    enabled: !isUserLoaded,
+  });
 
   useEffect(() => {
-    const token = Cookies.get("jwt");
-    const userJson = localStorage.getItem("user");
+    if (user) {
+      dispatch({ type: "LOGIN", payload: user });
+      setIsUserLoaded(true);
+    }
 
-    try {
-      const user: User | null = userJson ? JSON.parse(userJson) : null;
-
-      if (token && user) {
-        dispatch({
-          type: "LOGIN",
-          payload: user,
-        });
-      }
-    } catch (error: unknown) {
-      let message = "Failed to load auth, please login.";
-
-      if (error instanceof Error && error.message) {
-        message = error.message;
-      }
+    if (error) {
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : "Failed to load auth, please login.";
 
       toast.error(message);
       navigate("/login");
     }
-  }, [dispatch, navigate]);
+  }, [user, error, dispatch, navigate]);
 };
 
 export default useLoadAuth;

@@ -1,3 +1,1 @@
-import ForgotPasswordModal from "./ForgotPasswordModal";
-
-export default ForgotPasswordModal;
+export { default } from "./ForgotPasswordModal";

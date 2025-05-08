@@ -1,18 +1,19 @@
 import { Button } from "@mui/joy";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import PasswordInput from "../../components/PasswordInput";
 import {
   confirmPasswordValidation,
   passwordValidation,
-} from "../Signup/validation/Signup.schema";
+} from "../../validation/auth.validation";
+import { resetPassword } from "./API/resetPassword.api";
 import {
   ResetPasswordCard,
   ResetPasswordWrapper,
 } from "./styles/ResetPassword.style";
 import { ResetPasswordFormType } from "./types/ResetPassword.type";
-import toast from "react-hot-toast";
-import { resetPassword } from "./api/resetPassword.api";
 
 const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();
@@ -22,31 +23,34 @@ const ResetPassword = () => {
     watch,
     reset,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm<ResetPasswordFormType>();
 
   const newPassword = watch("newPassword");
 
-  const onSubmit = async (data: ResetPasswordFormType) => {
-    const { newPassword: password } = data;
-    try {
-      if (!token) {
-        throw new Error("Token is invalid!");
-      }
-      await resetPassword(token, password);
+  const mutation = useMutation({
+    mutationFn: ({ token, password }: { token: string; password: string }) =>
+      resetPassword(token, password),
+    onSuccess: () => {
       reset();
-      toast.success("Successfuly reset password🎉");
+      toast.success("Successfully reset password🎉");
       navigate("/");
-    } catch (error) {
-      let errorMessage = "";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      } else {
-        errorMessage =
-          "Somthing went wrong while trying to reset your password. Please try again.";
-      }
+    },
+    onError: (error: unknown) => {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong while trying to reset your password. Please try again.";
       toast.error(errorMessage);
+    },
+  });
+
+  const onSubmit = (data: ResetPasswordFormType) => {
+    if (!token) {
+      toast.error("Token is invalid!");
+      return;
     }
+    mutation.mutate({ token, password: data.newPassword });
   };
 
   return (
@@ -66,7 +70,12 @@ const ResetPassword = () => {
           validation={confirmPasswordValidation(newPassword)}
           error={errors.confirmPassword?.message}
         />
-        <Button type='submit' color='primary' fullWidth loading={isLoading}>
+        <Button
+          type='submit'
+          color='primary'
+          fullWidth
+          loading={mutation.isPending}
+        >
           Reset Password
         </Button>
       </ResetPasswordCard>

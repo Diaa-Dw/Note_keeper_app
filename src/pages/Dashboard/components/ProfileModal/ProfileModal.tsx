@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useAuthState } from "../../../../contexts/Auth/useAuth";
-import ChangePasswordForm from "../ChangePassowrdForm";
+import { ChangePasswordForm } from "..";
 
 const ProfileModal = ({ open, onClose }: ModalProps) => {
   const { user } = useAuthState();

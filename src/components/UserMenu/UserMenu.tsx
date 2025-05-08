@@ -9,28 +9,22 @@ import {
   Typography,
   useColorScheme,
 } from "@mui/joy";
-import Cookies from "js-cookie";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuthDispatch } from "../../contexts/Auth/useAuth";
+import { useLogout } from "../../hooks/useLogout";
 import ProfileModal from "../../pages/Dashboard/components/ProfileModal";
 import { UserMenuPorps } from "./UserMenu.type";
 
 const UserMenu = ({ username }: UserMenuPorps) => {
   const [openProfile, setOpenProfile] = useState(false);
-  const navigate = useNavigate();
   const { mode, setMode } = useColorScheme();
-  const dispatch = useAuthDispatch();
+  const logoutMutation = useLogout();
 
   const handleThemeToggle = () => {
     setMode(mode === "light" ? "dark" : "light");
   };
 
   const onLogout = () => {
-    localStorage.removeItem("user");
-    Cookies.remove("jwt");
-    navigate("/login");
-    dispatch({ type: "LOGOUT" });
+    logoutMutation.mutate();
   };
 
   return (
@@ -54,7 +48,11 @@ const UserMenu = ({ username }: UserMenuPorps) => {
             {mode === "light" ? <DarkMode /> : <Sunny />}
             Theme
           </MenuItem>
-          <MenuItem color='danger' onClick={onLogout}>
+          <MenuItem
+            color='danger'
+            onClick={onLogout}
+            disabled={logoutMutation.isPending}
+          >
             <Logout />
             Logout
           </MenuItem>

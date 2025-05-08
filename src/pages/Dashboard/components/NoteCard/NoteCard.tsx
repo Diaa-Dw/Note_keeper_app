@@ -2,19 +2,20 @@ import { DeleteRounded, EditNoteRounded } from "@mui/icons-material";
 import { Box, Button, Card, CardContent, Typography } from "@mui/joy";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { deleteNote } from "../../api/note.api";
+import toast from "react-hot-toast";
+import { deleteNote } from "../../API/note.api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal";
-import EditNoteModal from "../EditNoteModal";
+import { EditNoteModal } from "..";
+import ShowNoteModal from "../ShowNoteModal";
 import { NoteHeader } from "./NoteCard.style";
 import { NoteCardProps } from "./NoteCard.type";
-import ShowNoteModal from "../ShowNoteModal";
-import toast from "react-hot-toast";
 
 const NoteCard = ({ note }: NoteCardProps) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [showFullNote, setShowFullNote] = useState(false);
-  const { title, content, _id } = note;
+  const { title, content, createdAt, _id } = note;
+  const createdDate = createdAt.toString().split("T")[0];
 
   const isLongContent = content.length > 100;
   const previewContent = isLongContent
@@ -80,7 +81,7 @@ const NoteCard = ({ note }: NoteCardProps) => {
         )}
       </CardContent>
 
-      <Typography>2025-04-24</Typography>
+      <Typography>{createdDate}</Typography>
 
       <ConfirmDeleteModal
         open={openDeleteModal}

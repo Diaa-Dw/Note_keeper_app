@@ -1,18 +1,18 @@
 import { TitleRounded } from "@mui/icons-material";
 import { Button, Modal, Stack, Typography } from "@mui/joy";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import FormInput from "../../../../components/FormInput";
-import { createNewNote } from "../../api/note.api";
-import FormTextarea from "../FormTextarea";
-import { StyledModalDialog } from "./AddNote.style";
-import { AddNoteForm } from "./AddNoteModal.type";
+import { FormTextarea } from "..";
+import { FormInput } from "../../../../components";
+import { createNewNote } from "../../API/note.api";
 import {
   contentValidation,
   titleValidation,
 } from "../../validation/Note.schema";
-import { useEffect } from "react";
+import { StyledModalDialog } from "./AddNote.style";
+import { AddNoteForm } from "./AddNoteModal.type";
 
 const AddNoteModal = ({ open, onClose }: ModalProps) => {
   const {

@@ -1,3 +1,1 @@
-import NotesContainer from "./NotesContainer";
-
-export default NotesContainer;
+export { default } from "./NotesContainer";

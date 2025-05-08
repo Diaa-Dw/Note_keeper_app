@@ -1,7 +1,6 @@
 import axios from "axios";
-import { LoginFormData } from "../types/Login.type";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
-import { setCookie } from "../../../utils/cookieHandler";
+import { LoginFormData } from "../types/Login.type";
 
 const API_URL = `${import.meta.env.VITE_API}/api/v1/users`;
 
@@ -23,20 +22,7 @@ export const login = async ({ email, password }: LoginFormData) => {
       }
     );
 
-    if (res.data.status !== "success") {
-      throw new Error(
-        "An unexpected error occurred while logging in. Please try again later."
-      );
-    }
-    const data = res.data.data;
-    const user = {
-      id: data.user._id,
-      username: data.user.username,
-      photo: data.user?.photo || "",
-    };
-
-    localStorage.setItem("user", JSON.stringify(user));
-    setCookie("jwt", data.token, Number(import.meta.env.VITE_JWT_EXPIRES_IN));
+    const { user } = res.data.data;
 
     return user;
   } catch (error: unknown) {

@@ -5,18 +5,20 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import FormInput from "../../components/FormInput";
-import PasswordInput from "../../components/PasswordInput";
+import { FormInput, PasswordInput } from "../../components";
 import { useAuthDispatch } from "../../contexts/Auth/useAuth";
-import { login } from "./api/auth.api";
-import ForgotPasswordModal from "./components/ForgotPasswordModal";
+import {
+  emailValidation,
+  passwordValidation,
+} from "../../validation/auth.validation";
+import { login } from "./API/auth.api";
+import { ForgotPasswordModal } from "./components";
 import {
   LoginCard,
   LoginWrapper,
   RightAlignedLinkWrapper,
 } from "./styles/Login.style";
 import { LoginFormData } from "./types/Login.type";
-import { emailValidation, passwordValidation } from "./validation/Login.schema";
 
 const Login = () => {
   const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false);

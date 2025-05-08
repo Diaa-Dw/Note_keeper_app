@@ -1,18 +1,18 @@
-import { Button, Modal, ModalDialog, Stack, Typography } from "@mui/joy";
-import { useForm } from "react-hook-form";
-import FormInput from "../../../../components/FormInput";
 import { EmailRounded } from "@mui/icons-material";
-import { emailValidation } from "../../validation/Login.schema";
-import { forgotPassword } from "../../api/auth.api";
-import toast from "react-hot-toast";
-import { ForgotPasswordFormType } from "./ForgotPasswordModal.type";
+import { Button, Modal, ModalDialog, Stack, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FormInput } from "../../../../components";
+import { forgotPassword } from "../../API/auth.api";
+import { ForgotPasswordFormType } from "./ForgotPasswordModal.type";
+import { emailValidation } from "../../../../validation/auth.validation";
 
 const ForgotPasswordModal = ({ open, onClose }: ModalProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<ForgotPasswordFormType>();
 
   const forgotPasswordMutation = useMutation({
@@ -21,6 +21,7 @@ const ForgotPasswordModal = ({ open, onClose }: ModalProps) => {
       toast.success(
         "Reset Password link sent successfully. Please check your email."
       );
+      onClose();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -57,7 +58,7 @@ const ForgotPasswordModal = ({ open, onClose }: ModalProps) => {
               variant='solid'
               color='primary'
               type='submit'
-              loading={isSubmitting}
+              loading={forgotPasswordMutation.isPending}
             >
               Reset Password
             </Button>

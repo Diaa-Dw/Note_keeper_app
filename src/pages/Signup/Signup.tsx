@@ -4,9 +4,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import FormInput from "../../components/FormInput";
-import PasswordInput from "../../components/PasswordInput";
-import signup from "./api/signup.auth";
+import { FormInput, PasswordInput } from "../../components";
+import signup from "./API/auth.api";
 import { SignupnCard, SignupnWrapper } from "./styles/Signup.style";
 import { SignupFormData } from "./types/Signup.type";
 import {
@@ -14,7 +13,7 @@ import {
   emailValidation,
   passwordValidation,
   usernameValidation,
-} from "./validation/Signup.schema";
+} from "../../validation/auth.validation";
 
 const Signup = () => {
   const {

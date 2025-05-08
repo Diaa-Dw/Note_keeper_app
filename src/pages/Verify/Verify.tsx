@@ -8,7 +8,7 @@ const Verify = () => {
     if (token) {
       mutation.mutate();
     }
-  }, [token]);
+  }, [token, mutation]);
   if (mutation.isPending) {
     return (
       <Box

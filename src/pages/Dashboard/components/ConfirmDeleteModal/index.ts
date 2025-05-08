@@ -1,3 +1,1 @@
-import ConfirmDeleteModal from "./ConfirmDeleteModal";
-
-export default ConfirmDeleteModal;
+export { default } from "./ConfirmDeleteModal";

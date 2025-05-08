@@ -1,3 +1,1 @@
-import AuthGuard from "./AuthGuard";
-
-export default AuthGuard;
+export { default } from "./AuthGuard";

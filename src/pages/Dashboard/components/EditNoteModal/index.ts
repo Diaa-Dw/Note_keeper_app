@@ -1,3 +1,1 @@
-import EditNoteModal from "./EditNoteModal";
-
-export default EditNoteModal;
+export { default } from "./EditNoteModal";

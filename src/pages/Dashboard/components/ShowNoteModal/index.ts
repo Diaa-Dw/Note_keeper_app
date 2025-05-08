@@ -1,3 +1,1 @@
-import ShowNoteModal from "./ShowNoteModal";
-
-export default ShowNoteModal;
+export { default } from "./ShowNoteModal";

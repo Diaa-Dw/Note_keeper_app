@@ -1,3 +1,1 @@
-import AddNoteModal from "./AddNoteModal";
-
-export default AddNoteModal;
+export { default } from "./AddNoteModal";
