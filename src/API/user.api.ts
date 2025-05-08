@@ -4,6 +4,7 @@ import { handleAxiosError } from "../utils/handleAxiosError";
 const API_URL = `${import.meta.env.VITE_API}/api/v1/users`;
 
 export const getCurrentUser = async () => {
+  console.log("get current user");
   try {
     const res = await axios.get(`${API_URL}/me`, {
       withCredentials: true,

@@ -1,25 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import { getCurrentUser } from "../API/user.api";
 import { useAuthDispatch } from "../contexts/Auth/useAuth";
 
 const useLoadAuth = () => {
   const dispatch = useAuthDispatch();
   const navigate = useNavigate();
-  const [isUserLoaded, setIsUserLoaded] = useState(false);
+
+  const hasJWT = !!Cookies.get("jwt");
 
   const { data: user, error } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrentUser,
-    enabled: !isUserLoaded,
+    enabled: hasJWT,
   });
 
   useEffect(() => {
     if (user) {
       dispatch({ type: "LOGIN", payload: user });
-      setIsUserLoaded(true);
     }
 
     if (error) {
