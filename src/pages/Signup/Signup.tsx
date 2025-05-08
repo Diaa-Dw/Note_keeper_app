@@ -3,22 +3,24 @@ import { Button, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormInput, PasswordInput } from "../../components";
-import signup from "./API/auth.api";
-import { SignupnCard, SignupnWrapper } from "./styles/Signup.style";
-import { SignupFormData } from "./types/Signup.type";
 import {
   confirmPasswordValidation,
   emailValidation,
   passwordValidation,
   usernameValidation,
 } from "../../validation/auth.validation";
+import signup from "./API/auth.api";
+import { SignupnCard, SignupnWrapper } from "./styles/Signup.style";
+import { SignupFormData } from "./types/Signup.type";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm<SignupFormData>();
@@ -28,6 +30,8 @@ const Signup = () => {
   const signupMutation = useMutation({
     mutationFn: signup,
     onSuccess: (data) => {
+      navigate("/");
+      reset();
       toast.success(data.message);
     },
     onError: (error) => {
