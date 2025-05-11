@@ -1,26 +1,37 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { verifyEmailRequest } from "../API/verify.api";
-import { useMutation } from "@tanstack/react-query";
-import { useAuthDispatch } from "../../../contexts/Auth/useAuth";
+import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAuthDispatch } from "../../../contexts/Auth/useAuth";
+import { verifyEmailRequest } from "../API/verify.api";
 
 export function useVerifyEmail() {
   const dispatch = useAuthDispatch();
   const { token } = useParams<{ token: string }>();
   const navigate = useNavigate();
 
-  const mutation = useMutation({
-    mutationFn: () => verifyEmailRequest(token!),
-    onSuccess: (user) => {
-      dispatch({ type: "LOGIN", payload: user! });
-      navigate("/");
-      toast.success("Email verified successfully🎉");
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-    retry: 2,
+  const {
+    data: user,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["user", token],
+    queryFn: () => verifyEmailRequest(token!),
+    enabled: !!token,
   });
 
-  return { token, mutation };
+  if (user) {
+    dispatch({ type: "LOGIN", payload: user });
+    navigate("/");
+    toast.success("Email verified successfully 🎉");
+  }
+
+  if (error) {
+    toast.error(
+      error instanceof Error
+        ? error.message
+        : "Something went wrong while verifying your email."
+    );
+  }
+
+  return { isLoading, error };
 }
