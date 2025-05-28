@@ -1,54 +1,44 @@
-# React + TypeScript + Vite
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6a890925-38e1-4f3a-908e-6a698f6f70b8" alt="FTS Note Keeper Logo" />
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# FTS Note Keeper Website
 
-Currently, two official plugins are available:
+FTS Note Keeper is a modern web application designed to help users manage their notes with ease. It provides secure authentication, email verification, password recovery, and a user-friendly interface with both light and dark themes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- **CRUD Operations:** Create, read, update, and delete your notes seamlessly.
+- **Authentication:** Sign up, sign in, and secure your account with email verification.
+- **Password Management:** Forgot your password? Easily reset or update it.
+- **Responsive UI:** Built with Material-UI for a clean, accessible experience.
+- **Theme Toggle:** Switch between light and dark mode to suit your preference.
+- **Real-Time Feedback:** Instant notifications powered by react-hot-toast.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Technologies Used
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Material-UI](https://mui.com/)
+- [TanStack Query](https://tanstack.com/query/latest)
+- [React Hot Toast](https://react-hot-toast.com/)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🖼️ Screenshots
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+![Dashboard Screenshot](https://github.com/user-attachments/assets/301c7156-f239-406b-ab91-2e1c030a96b9)
+
+![Note Editor Screenshot](https://github.com/user-attachments/assets/c38f7d22-fe94-40db-bdd0-e84d7ed92139)
+
+## 📧 Email Verification & Account Security
+
+- Upon signup, a verification email is sent to ensure your email address is valid.
+- Use the "Forgot Password" feature to reset or update your password securely.
+
+## 🌑 Theme Support
+
+- Easily toggle between light and dark mode from the UI.
+
+## 📄 License
+
+This project is licensed under the MIT License.
