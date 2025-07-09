@@ -14,16 +14,21 @@ const globalStyles = {
     display: "flex",
     flexDirection: "column",
   },
-  a: {
-    textDecoration: "inherit",
-    color: "var(--joy-palette-primary-plainColor)",
+  "a.link": {
+    fontSize: "1.2rem",
+    textDecoration: "none",
+    transition: "color .2s ease-in-out",
     "&:hover": {
-      color: "var(--joy-palette-primary-plainHoverColor)",
+      color: "var(--joy-palette-primary-solidBg)",
     },
   },
-  "input:-webkit-autofill": {
-    boxShadow: "0 0 0 1000px var(--joy-palette-background-body) inset",
+  "a.primary": {
+    color: "var(--joy-palette-primary-solidHoverBg)",
   },
+  "a.secondary": {
+    color: "var(--joy-palette-text-secondary)",
+  },
+
 };
 
 export default globalStyles;

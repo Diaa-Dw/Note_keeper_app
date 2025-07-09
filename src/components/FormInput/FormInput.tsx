@@ -1,22 +1,35 @@
-import { FormLabel } from "@mui/joy";
-import { StyledFormControl, StyledInput } from "./FormInput.style";
+import { FormControl, FormHelperText, FormLabel, Input } from "@mui/joy";
 import { FormInputProps } from "./FormInput.type";
+import { InfoOutlined } from "@mui/icons-material";
 
 const FormInput = ({
   label,
   type = "text",
   startDecorator,
   placeholder = "",
+  id,
+  register,
+  validation,
+  error,
+  sx,
 }: FormInputProps) => {
   return (
-    <StyledFormControl>
-      <FormLabel>{label}</FormLabel>
-      <StyledInput
+    <FormControl error={error !== undefined} sx={sx}>
+      {label && <FormLabel>{label}</FormLabel>}
+      <Input
         type={type}
         placeholder={placeholder}
         startDecorator={startDecorator}
+        id={id}
+        {...register(id, validation)}
       />
-    </StyledFormControl>
+      {error && (
+        <FormHelperText>
+          <InfoOutlined />
+          {error}
+        </FormHelperText>
+      )}
+    </FormControl>
   );
 };
 
